@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="./pages/index.css" />
     <title>Around the U.S.</title>
   </head>
-  <body>
-    <div class="page">
-      <header class="header">
+  <body class="page">
+    <div class="page__content">
+      <header class="header page__section">
         <img
           src="./images/headerlogo.svg"
           alt="around the world"
@@ -23,39 +23,120 @@
         />
         <div class="header__line"></div>
       </header>
-      <div class="profile">
-        <img
-          src="./images/jacques-cousteau.jpg"
-          alt="jacques-cousteau"
-          class="profile__picture"
-        />
-        <h1 class="profile__name">
-          Jacques-Costeau <span class="profile__description">Explorer</span>
-        </h1>
-        <button class="profile__edit-button">
-          <img
-            src="./images/pentool.svg"
-            alt="edit button"
-            class="profile__pen-tool"
-          />
-        </button>
-        <button class="profile__add-button">
-          <img
-            src="./images/plussign.svg"
-            alt="add button"
-            class="profile__plus-sign"
-          />
-        </button>
-      </div>
       <main class="content">
+        <section class="profile page__section">
+          <img
+            src="./images/jacques-cousteau.jpg"
+            alt="avatar"
+            class="profile__image"
+          />
+          <div class="profile__info">
+            <h1 class="profile__title">Jacques-Costeau</h1>
+            <button class="profile__edit-button"></button>
+            <p class="profile__description">Explorer</p>
+          </div>
+          <button class="profile__add-button"></button>
+        </section>
         <ul class="gallery">
           <li class="card">
             <img
-              src="./images/yosemite-valley.jpg"
+              src="./images/yosemite-valley.png"
               alt="yosemite valley"
               class="card__image"
             />
-            <p>Yosemite Valley</p>
+            <p class="card__text">
+              Yosemite Valley
+              <button class="card__button">
+                <img
+                  src="./images/like-button.svg"
+                  alt="like button"
+                  class="card-icon__button"
+                />
+              </button>
+            </p>
+          </li>
+          <li class="card">
+            <img
+              src="./images/lake-louise.png"
+              alt="Lake Louise"
+              class="card__image"
+            />
+            <p class="card__text">
+              <span>Lake Louise</span>
+              <span>
+                <button class="card__button">
+                  <img
+                    src="./images/like-button.svg"
+                    alt="like button"
+                    class="card-icon__button"
+                  />
+                </button>
+              </span>
+            </p>
+          </li>
+          <li class="card">
+            <img
+              src="./images/bald-mountains.png"
+              alt="Bald Mountains"
+              class="card__image"
+            />
+            <p class="card__text">
+              Bald Mountains
+              <button class="card__button">
+                <img
+                  src="./images/like-button.svg"
+                  alt="like button"
+                  class="card-icon__button"
+                />
+              </button>
+            </p>
+          </li>
+          <li class="card">
+            <img src="./images/latemar.png" alt="latemar" class="card__image" />
+            <p class="card__text">
+              Latemar
+              <button class="card__button">
+                <img
+                  src="./images/like-button.svg"
+                  alt="like button"
+                  class="card-icon__button"
+                />
+              </button>
+            </p>
+          </li>
+          <li class="card">
+            <img
+              src="./images/vanoise-national-park.png"
+              alt="vanoise national park"
+              class="card__image"
+            />
+            <p class="card__text">
+              Vanoise National Park
+              <button class="card__button">
+                <img
+                  src="./images/like-button.svg"
+                  alt="like button"
+                  class="card-icon__button"
+                />
+              </button>
+            </p>
+          </li>
+          <li class="card">
+            <img
+              src="./images/lago-di-braies.png"
+              alt="lago di Braies"
+              class="card__image"
+            />
+            <p class="card__text">
+              Lago Di Braies
+              <button class="card__button">
+                <img
+                  src="./images/like-button.svg"
+                  alt="like button"
+                  class="card-icon__button"
+                />
+              </button>
+            </p>
           </li>
         </ul>
       </main>
