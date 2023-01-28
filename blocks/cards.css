@@ -1,5 +1,8 @@
 .cards {
   /* fonts */
+  font-family: "Inter";
+  font-weight: bold;
+  color: black;
   margin-top: 40px;
 }
 
@@ -61,3 +64,5 @@
   margin-top: 67px;
   margin-bottom: 60px;
 }
+
+@media screen and (max-width: );
