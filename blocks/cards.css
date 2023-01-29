@@ -53,16 +53,3 @@
   height: 18px;
   border: 0;
 }
-
-.footer__address {
-  font-family: "Inter", Arial, sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
-  color: #545454;
-  margin-top: 67px;
-  margin-bottom: 60px;
-}
-/* 
-@media screen and (max-width: ); */
