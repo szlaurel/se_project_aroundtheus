@@ -25,24 +25,24 @@
 .profile__title {
   font-size: 42px;
   line-height: 48px;
-  font-weight: 500;
-  font-family: "Inter-Medium", Arial, sans-serif;
+  font-weight: medium;
+  font-family: "Inter", Arial, sans-serif;
   grid-area: title;
   margin: 0;
   max-width: 373px;
-  max-height: 39px;
+  /* max-height: 39px; needs to be removed*/
 }
 
 .profile__description {
   grid-area: description;
   font-size: 18px;
   line-height: 22px;
-  font-weight: 400;
+  font-weight: medium;
   font-family: "Inter", Arial, sans-serif;
   margin: 0;
   margin-top: 16px;
   max-width: 415px;
-  max-height: 22px;
+  /* max-height: 22px; needs to be removed*/
 }
 
 .profile__edit-button {
@@ -52,6 +52,12 @@
   border: 1px solid white;
   grid-area: button;
   margin-left: 18px;
+  margin-bottom: 8px;
+}
+
+.profile__edit-button:hover {
+  opacity: 0.7;
+  cursor: pointer;
 }
 
 .profile__add-button {
@@ -60,24 +66,12 @@
   height: 50px;
   border: 2px solid white;
   margin-left: auto;
+  border-radius: 2px;
 }
 
-@media screen and (min-width: 560px) {
-  .profile__title {
-    max-height: 88px;
-  }
-}
-
-@media screen and (min-width: 482px) {
-  .profile__title {
-    max-height: 88px;
-  }
-}
-
-@media screen and (min-width: 725px) {
-  .profile__title {
-    max-height: 39px;
-  }
+.profile__add-button:hover {
+  opacity: 0.7;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 720px) {
@@ -106,23 +100,19 @@
   .profile {
     flex-direction: column;
     min-width: 282px;
-    min-height: 286px;
   }
 
   .profile__info {
     min-width: 282px;
-    min-height: 50px;
     margin-top: 26.25px;
   }
 
   .profile__title {
     min-width: 196px;
-    min-height: 22px;
   }
 
   .profile__description {
     min-width: 282px;
-    min-height: 14px;
     margin: 0;
     margin-top: 14px;
     text-align: center;
@@ -139,9 +129,20 @@
 @media screen and (max-width: 320px) {
   .profile__title {
     min-width: 196px;
-    min-height: 22px;
     font-size: 22px;
     margin-left: 62px;
+  }
+  .profile__description {
+    max-width: 282px;
+    max-height: 14px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    margin-left: 19px;
+    margin-top: 0;
   }
 
   .profile__edit-button {
@@ -149,10 +150,6 @@
     height: 18px;
     margin-left: 10px;
     margin-right: 34px;
-    margin-bottom: 5px;
-  }
-
-  .profile__image {
-    margin-right: 0;
+    margin-bottom: 15px;
   }
 }
