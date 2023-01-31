@@ -30,17 +30,23 @@
   grid-area: title;
   margin: 0;
   max-width: 373px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__description {
   grid-area: description;
   font-size: 18px;
   line-height: 22px;
-  font-weight: 500;
+  font-weight: 400;
   font-family: "Inter", Arial, sans-serif;
   margin: 0;
   margin-top: 16px;
   max-width: 415px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__edit-button {
@@ -55,7 +61,7 @@
 }
 
 .profile__edit-button:hover {
-  opacity: 0.5;
+  opacity: 0.6;
   cursor: pointer;
 }
 
@@ -70,29 +76,13 @@
 }
 
 .profile__add-button:hover {
-  opacity: 0.5;
+  opacity: 0.6;
   cursor: pointer;
 }
 
 @media screen and (max-width: 720px) {
   .profile__edit-button {
-    margin-left: 5px;
-  }
-}
-
-@media screen and (max-width: 375px) {
-  .profile__title {
-    font-size: 26px;
-    margin-left: 62px;
-  }
-
-  .profile__image {
-    margin-right: 0;
-  }
-
-  .profile__edit-button {
-    margin-right: 34px;
-    margin-left: 0;
+    margin-left: 10px;
   }
 }
 
@@ -109,6 +99,7 @@
 
   .profile__title {
     min-width: 196px;
+    text-align: center;
   }
 
   .profile__description {
@@ -126,6 +117,25 @@
   }
 }
 
+@media screen and (max-width: 406px) {
+  .profile__title {
+    font-size: 26px;
+    margin-left: 62px;
+    line-height: 27px;
+    font-weight: 500;
+  }
+
+  .profile__image {
+    margin-right: 0;
+  }
+
+  .profile__edit-button {
+    margin-right: 32px;
+    margin-left: 0;
+    margin-bottom: 0;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .profile__title {
     min-width: 196px;
@@ -134,22 +144,17 @@
   }
   .profile__description {
     max-width: 282px;
-    max-height: 14px;
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 400;
+    margin-left: 19px;
+    margin-top: 14px;
     font-size: 14px;
     line-height: 17px;
-    text-align: center;
-    margin-left: 19px;
-    margin-top: 0;
   }
 
   .profile__edit-button {
-    width: 18px;
-    height: 18px;
     margin-left: 10px;
     margin-right: 34px;
-    margin-bottom: 15px;
+    margin-bottom: 4px;
+    width: 18px;
+    height: 18px;
   }
 }

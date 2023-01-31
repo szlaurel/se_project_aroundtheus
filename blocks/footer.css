@@ -10,10 +10,22 @@
   font-size: 18px;
   line-height: 22px;
   color: #545454;
+  margin: 0;
+  max-width: 318px;
+  max-height: 18px;
 }
 
 @media screen and (max-width: 320px) {
   .footer {
-    margin: 48px 19px 36px;
+    margin: 0;
+  }
+
+  .footer__address {
+    font-size: 14px;
+    line-height: 17px;
+    max-width: 282px;
+    max-height: 14px;
+    margin: 0;
+    padding: 48px 19px 36px;
   }
 }
