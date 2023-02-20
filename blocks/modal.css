@@ -1,0 +1,51 @@
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* display: flex; */
+  padding: 0 19px;
+  display: none;
+}
+
+.modal__opened {
+  display: flex;
+}
+
+.modal__container {
+  background-color: white;
+  margin: auto;
+  padding: 36px;
+  border-radius: 10px;
+  position: relative;
+}
+
+/* .modal__form {
+} */
+
+/* At 630px for screen width you want to move the close button in for responsiveness */
+.modal__close {
+  position: absolute;
+  bottom: calc(100% + 5px);
+  left: calc(100% + 5px);
+  background-image: url(../images/close-icon.svg);
+  background-repeat: no-repeat;
+  border: none;
+  background-color: transparent;
+  background-size: contain;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.modal__heading {
+  color: black;
+}
+
+.modal__button {
+  align-self: center;
+  cursor: pointer;
+}
