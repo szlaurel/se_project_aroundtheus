@@ -6,14 +6,13 @@
   right: 0;
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
   padding: 0 19px;
-  /* display: none; */
+  display: none;
 }
 
-/* .modal__opened {
+.modal__opened {
   display: flex;
-} */
+}
 
 .modal__container {
   background-color: white;
@@ -70,6 +69,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
+  color: #000;
 }
 
 .modal__input[name="description"] {
