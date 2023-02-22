@@ -56,8 +56,7 @@
 }
 
 .modal__input {
-  opacity: 0.2;
-  border: 1px solid #000000;
+  border: 1px solid rgba(0, 0, 0, 0.2);
   width: 358px;
   height: 30px;
   margin-bottom: 29.74px;
