@@ -13,6 +13,14 @@ function closePopUp() {
   profileEditModal.classList.remove("modal__opened");
 }
 
+function handleProfileSubmit(e) {
+  e.preventDefault();
+  console.log("form submitted");
+  profileTitle.textContent = profileTitleInput.value;
+  profileDescription.textContent = profileDescriptionInput.value;
+  closePopUp();
+}
+
 profileEditButton.addEventListener("click", () => {
   profileEditModal.classList.add("modal__opened");
   profileTitleInput.value = profileTitle.textContent;
@@ -20,18 +28,9 @@ profileEditButton.addEventListener("click", () => {
   console.log("Edit button has been pressed");
 });
 
-modalClose.addEventListener("click", () => {
-  closePopUp();
-  console.log("close button has been pressed");
-});
+modalClose.addEventListener("click", closePopUp);
 
-profileEditForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  console.log("form submitted");
-  profileTitle.textContent = profileTitleInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
-  closePopUp();
-});
+profileEditForm.addEventListener("submit", handleProfileSubmit);
 
 //Old code for the modal to open and close VVVVVVV
 
