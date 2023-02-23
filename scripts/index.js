@@ -26,21 +26,35 @@ const initialCards = [
 ];
 
 const profileEditButton = document.querySelector("#profile-edit-button");
-const modalClose = document.querySelector(".modal__close");
 const profileEditModal = document.querySelector("#profile-edit-modal");
+const modalClose = profileEditModal.querySelector(".modal__close");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
-const profileEditForm = document.querySelector(".modal__form");
+const profileEditForm = profileEditModal.querySelector(".modal__form");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 const cardListEl = document.querySelector(".cards__list");
 
+function OpenPopUp() {
+  profileEditModal.classList.add("modal__opened");
+}
+
 function closePopUp() {
   profileEditModal.classList.remove("modal__opened");
+}
+
+function fillProfileForm() {
+  profileTitleInput.value = profileTitle.textContent;
+  profileDescriptionInput.value = profileDescription.textContent;
+}
+
+function currentInputValues() {
+  profileTitle.textContent = profileTitleInput.value;
+  profileDescription.textContent = profileDescriptionInput.value;
 }
 
 function getCardElement(cardData) {
@@ -61,17 +75,13 @@ function getCardElement(cardData) {
 
 function handleProfileSubmit(e) {
   e.preventDefault();
-  console.log("form submitted");
-  profileTitle.textContent = profileTitleInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
+  currentInputValues();
   closePopUp();
 }
 
 profileEditButton.addEventListener("click", () => {
-  profileEditModal.classList.add("modal__opened");
-  profileTitleInput.value = profileTitle.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
-  console.log("Edit button has been pressed");
+  OpenPopUp();
+  fillProfileForm();
 });
 
 modalClose.addEventListener("click", closePopUp);
