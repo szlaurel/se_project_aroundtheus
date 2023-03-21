@@ -73,6 +73,10 @@
           </form>
         </div>
       </div>
+      <!-- Preview image Modal -->
+      <div class="modal" id="preview-image-modal">
+        <img id="image" src="" alt="" class="" />
+      </div>
       <!-- Add card Modal -->
       <div class="modal" id="add-card-modal">
         <div class="modal__container">
@@ -102,6 +106,7 @@
       <!-- add a delete button on the card using position absolute and add the trashcan -->
       <li class="card">
         <img id="image" src="" alt="" class="card__image" />
+        <button type="button" class="card__delete-button"></button>
         <div class="card__description">
           <h2 class="card__title"></h2>
           <button type="button" class="card__like-button"></button>

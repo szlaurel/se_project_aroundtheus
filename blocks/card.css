@@ -3,10 +3,21 @@
   flex-direction: column;
   list-style-type: none;
 }
+
 .card__image {
   width: 282px;
   height: 282px;
   border-radius: 10px 10px 0px 0px;
+}
+
+.card__delete-button {
+  background: transparent url(../images/trash-can.svg) center no-repeat;
+  width: 18px;
+  height: 19px;
+  position: absolute;
+  margin: 18px 15px 249px 244px;
+  border: 0;
+  cursor: pointer;
 }
 
 .card__title {

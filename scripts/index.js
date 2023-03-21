@@ -39,6 +39,7 @@ const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const addNewCardButton = document.querySelector(".profile__add-button");
+// const previewImageModal =
 //place previewImageModal here and you need to write some code in the html document
 
 //Form Data
@@ -80,8 +81,11 @@ function getCardElement(cardData) {
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardTitleEl = cardElement.querySelector(".card__title");
   const likeButton = cardElement.querySelector(".card__like-button");
+  const deleteButton = cardElement.querySelector(".card__delete-button");
   //find delete button
-
+  deleteButton.addEventListener("click", () => {
+    cardElement.remove();
+  });
   //add the event listener to the delete button
   // cardElement.remove();
 
@@ -133,15 +137,3 @@ addCardModalCloseButton.addEventListener("click", () => {
 addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 
 initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
-
-// Save this just in case VVVVV
-// initialCards.forEach((cardData) => {
-//   const cardElement = getCardElement(cardData);
-//   cardsWrap.prepend(cardElement);
-// });
-
-// Save this just in case too VVVVV
-// profileEditButton.addEventListener("click", () => {
-//   openPopUp();
-//   fillProfileForm();
-// });
