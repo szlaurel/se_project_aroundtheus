@@ -31,6 +31,7 @@ const profileEditModal = document.querySelector("#profile-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addCardForm = addCardModal.querySelector(".modal__form");
+const previewImageModal = document.querySelector("#preview-image-modal");
 
 //Buttons and other DOM nodes
 const profileEditButton = document.querySelector("#profile-edit-button");
@@ -39,7 +40,12 @@ const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const addNewCardButton = document.querySelector(".profile__add-button");
-// const previewImageModal =
+//We'll be able to target the image src by using the preview image variable here VVVVV
+const previewImage = previewImageModal.querySelector(".modal__image");
+const previewImageName = previewImageModal.querySelector(".modal__image-name");
+const previewImageCloseButton =
+  previewImageModal.querySelector(".modal__close");
+// const previewImageModalCloseButton = document.querySelector(".")
 //place previewImageModal here and you need to write some code in the html document
 
 //Form Data
@@ -76,25 +82,37 @@ function currentInputValues() {
   profileDescription.textContent = profileDescriptionInput.value;
 }
 
+//Function for the cards
+//all the variables inside the getCardElement are only local scope which means you can't pull them out of the function and use them anywhere else
+
 function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardTitleEl = cardElement.querySelector(".card__title");
   const likeButton = cardElement.querySelector(".card__like-button");
   const deleteButton = cardElement.querySelector(".card__delete-button");
-  //find delete button
   deleteButton.addEventListener("click", () => {
     cardElement.remove();
   });
-  //add the event listener to the delete button
-  // cardElement.remove();
 
   //add click listener to the cardImage element
   //openModal with previewImageModal
 
+  //this is where the code for the preview image modal is supposed to be VVV
+  cardImageEl.addEventListener("click", () => {
+    previewImage.src = cardData.link;
+    previewImage.alt = cardData.name;
+    previewImageName.textContent = cardData.name;
+    openPopUp(previewImageModal);
+  });
+  previewImageCloseButton.addEventListener("click", () => {
+    closePopUp(previewImageModal);
+  });
+
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");
   });
+
   cardImageEl.src = cardData.link;
   cardImageEl.alt = cardData.name;
   cardTitleEl.textContent = cardData.name;
