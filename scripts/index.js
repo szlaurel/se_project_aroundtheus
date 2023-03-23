@@ -25,7 +25,7 @@ const initialCards = [
   },
 ];
 
-//Wrappers
+//Wrappers aka div wrappers from the html document
 const cardsWrap = document.querySelector(".cards__list");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
@@ -33,7 +33,7 @@ const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addCardForm = addCardModal.querySelector(".modal__form");
 const previewImageModal = document.querySelector("#preview-image-modal");
 
-//Buttons and other DOM nodes
+//Buttons and other DOM nodes (Document Object Model)
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileModalCloseButton = profileEditModal.querySelector(".modal__close");
 const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
@@ -43,9 +43,9 @@ const addNewCardButton = document.querySelector(".profile__add-button");
 //We'll be able to target the image src by using the preview image variable here VVVVV
 const previewImage = previewImageModal.querySelector(".modal__image");
 const previewImageName = previewImageModal.querySelector(".modal__image-name");
-const previewImageCloseButton =
-  previewImageModal.querySelector(".modal__close");
-// const previewImageModalCloseButton = document.querySelector(".")
+const previewImageCloseButton = previewImageModal.querySelector(
+  ".modal__close-preview"
+);
 //place previewImageModal here and you need to write some code in the html document
 
 //Form Data
@@ -95,10 +95,8 @@ function getCardElement(cardData) {
     cardElement.remove();
   });
 
-  //add click listener to the cardImage element
-  //openModal with previewImageModal
-
   //this is where the code for the preview image modal is supposed to be VVV
+  //this is also where the card data lies because this is where it pulls the information from within the array
   cardImageEl.addEventListener("click", () => {
     previewImage.src = cardData.link;
     previewImage.alt = cardData.name;

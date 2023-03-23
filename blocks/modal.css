@@ -1,3 +1,4 @@
+/* got rid of display: none; and replaced it with visiblility none due to conflictions of display none */
 .modal {
   position: fixed;
   top: 0;
@@ -7,11 +8,16 @@
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 0 19px;
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease, visibility 0s ease 0.3s;
 }
 
 .modal__opened {
   display: flex;
+  visibility: visible;
+  transition-delay: 0s;
+  opacity: 1;
 }
 
 .modal__container {
@@ -40,12 +46,29 @@
   width: 40px;
   height: 40px;
   cursor: pointer;
+  opacity: 1;
+}
+
+.modal__close:hover {
+  opacity: 0.6;
+  visibility: visible;
 }
 
 .modal__close-preview {
   position: relative;
   bottom: calc(100% + 5px);
   left: calc(100% + 5px);
+  border: none;
+  background-color: transparent;
+  background-size: contain;
+  background: url(../images/close-icon.svg) no-repeat;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.modal__close-preview:hover {
+  opacity: 0.6;
 }
 
 .modal__heading {
