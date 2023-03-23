@@ -59,14 +59,10 @@
   height: 40px;
   cursor: pointer;
   opacity: 1;
+  transition: ease-in-out 0.3s;
 }
 
 .modal__close:hover {
-  opacity: 0.6;
-  visibility: visible;
-}
-
-.modal__close-preview:hover {
   opacity: 0.6;
 }
 
@@ -118,6 +114,11 @@
   line-height: 22px;
   text-align: center;
   color: #ffffff;
+  transition: ease-in-out 0.6s;
+}
+
+.modal__button:hover {
+  opacity: 0.6s;
 }
 
 .modal__image {
