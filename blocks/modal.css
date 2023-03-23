@@ -11,14 +11,14 @@
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.5s ease, visibility 0s linear 0.1s;
+  display: flex;
 }
 
 .modal__opened {
-  display: flex;
   visibility: visible;
   align-items: center;
   justify-content: center;
-  transition-delay: 0.2s;
+  transition-delay: 0.3s;
   opacity: 1;
 }
 
