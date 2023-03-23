@@ -10,13 +10,15 @@
   padding: 0 19px;
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.5s ease, visibility 0s ease 0.3s;
+  transition: opacity 0.5s ease, visibility 0s linear 0.1s;
 }
 
 .modal__opened {
   display: flex;
   visibility: visible;
-  transition-delay: 0s;
+  align-items: center;
+  justify-content: center;
+  transition-delay: 0.2s;
   opacity: 1;
 }
 
@@ -25,6 +27,16 @@
   margin: auto;
   padding: 36px;
   border-radius: 10px;
+  position: relative;
+}
+
+.modal__container-preview {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin: auto;
   position: relative;
 }
 
@@ -40,7 +52,7 @@
   bottom: calc(100% + 5px);
   left: calc(100% + 5px);
   border: none;
-  background-color: transparent;
+  background-color: transparent; /*change this back to transparent */
   background-size: contain;
   background: url(../images/close-icon.svg) no-repeat;
   width: 40px;
@@ -52,19 +64,6 @@
 .modal__close:hover {
   opacity: 0.6;
   visibility: visible;
-}
-
-.modal__close-preview {
-  position: relative;
-  bottom: calc(100% + 5px);
-  left: calc(100% + 5px);
-  border: none;
-  background-color: transparent;
-  background-size: contain;
-  background: url(../images/close-icon.svg) no-repeat;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
 }
 
 .modal__close-preview:hover {
@@ -121,19 +120,11 @@
   color: #ffffff;
 }
 
-.modal__container-preview {
-  display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  margin: auto;
-}
-
 .modal__image {
   max-width: 75vw;
   max-height: 75vh;
   margin: auto;
+  position: relative;
 }
 
 .modal__image-name {

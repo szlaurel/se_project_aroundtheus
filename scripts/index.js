@@ -43,9 +43,8 @@ const addNewCardButton = document.querySelector(".profile__add-button");
 //We'll be able to target the image src by using the preview image variable here VVVVV
 const previewImage = previewImageModal.querySelector(".modal__image");
 const previewImageName = previewImageModal.querySelector(".modal__image-name");
-const previewImageCloseButton = previewImageModal.querySelector(
-  ".modal__close-preview"
-);
+const previewImageCloseButton =
+  previewImageModal.querySelector(".modal__close");
 //place previewImageModal here and you need to write some code in the html document
 
 //Form Data
