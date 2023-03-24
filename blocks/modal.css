@@ -12,14 +12,15 @@
   opacity: 0;
   transition: opacity 0.5s ease, visibility 0s linear 0.1s;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal__opened {
   visibility: visible;
-  align-items: center;
-  justify-content: center;
   transition-delay: 0.3s;
   opacity: 1;
+  pointer-events: auto;
 }
 
 .modal__container {
@@ -80,7 +81,7 @@
 
 .modal__input {
   border: 1px solid rgba(0, 0, 0, 0.2);
-  width: 358px;
+  width: 100%;
   height: 30px;
   margin-bottom: 29.74px;
   border-top: 0;
