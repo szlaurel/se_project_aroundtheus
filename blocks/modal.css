@@ -95,6 +95,11 @@
   line-height: 17px;
   color: #000;
 }
+/*
+.modal__input:first-of-type {
+  margin-bottom: 0px;
+}
+*/
 
 .modal__input:last-of-type {
   margin-bottom: 0px;
