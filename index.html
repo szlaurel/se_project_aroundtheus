@@ -60,7 +60,10 @@
               placeholder="Name"
               class="modal__input"
               required
+              minlength="2"
+              maxlength="40"
             />
+            <span></span>
             <input
               type="text"
               name="description"
@@ -68,7 +71,10 @@
               placeholder="Description"
               class="modal__input"
               required
+              minlength="2"
+              maxlength="200"
             />
+            <span></span>
             <button class="modal__button">Save</button>
           </form>
         </div>
@@ -93,7 +99,10 @@
               placeholder="Title"
               class="modal__input modal__input_type_title"
               required
+              minlength="1"
+              maxlength="30"
             />
+            <span></span>
             <input
               type="text"
               name="url"
@@ -101,6 +110,7 @@
               class="modal__input modal__input_type_url"
               required
             />
+            <span></span>
             <button class="modal__button">Save</button>
           </form>
         </div>
