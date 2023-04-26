@@ -45,6 +45,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 358px;
 }
 
 /* At 630px for screen width you want to move the close button in for responsiveness */
@@ -94,11 +95,6 @@
   line-height: 17px;
   color: #000;
 }
-/*
-.modal__input:first-of-type {
-  margin-bottom: 0px;
-}
-*/
 
 .modal__input:last-of-type {
   margin-bottom: 0px;
@@ -146,7 +142,7 @@
 
 @media screen and (max-width: 470px) {
   .modal__form {
-    max-width: 282px;
+    width: 282px;
   }
   .modal__close {
     top: -72.62px;

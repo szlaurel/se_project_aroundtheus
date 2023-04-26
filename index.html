@@ -51,7 +51,7 @@
       <div class="modal" id="profile-edit-modal">
         <div class="modal__container">
           <button class="modal__close"></button>
-          <form class="modal__form" novalidate>
+          <form class="modal__form">
             <h2 class="modal__heading">Edit Profile</h2>
             <input
               type="text"
@@ -59,22 +59,16 @@
               id="profile-title-input"
               placeholder="Name"
               class="modal__input"
-              minlength="2"
-              maxlength="40"
               required
             />
-            <span class="popup__error" id="profile-title-error">error</span>
             <input
               type="text"
               name="description"
               id="profile-description-input"
               placeholder="Description"
               class="modal__input"
-              minlength="2"
-              maxlength="200"
               required
             />
-            <span class="popup__error" id="profile-description-error"></span>
             <button class="modal__button">Save</button>
           </form>
         </div>
@@ -91,18 +85,15 @@
       <div class="modal" id="add-card-modal">
         <div class="modal__container">
           <button class="modal__close"></button>
-          <form class="modal__form" id="add-card-form" novalidate>
+          <form class="modal__form" id="add-card-form">
             <h2 class="modal__heading">New Place</h2>
             <input
               type="text"
               name="title"
               placeholder="Title"
               class="modal__input modal__input_type_title"
-              minlength="1"
-              maxlength="30"
               required
             />
-            <span class="popup__error" id="title-error"></span>
             <input
               type="text"
               name="url"
@@ -110,7 +101,6 @@
               class="modal__input modal__input_type_url"
               required
             />
-            <span class="popup__error" id="url-error"></span>
             <button class="modal__button">Save</button>
           </form>
         </div>
@@ -128,6 +118,5 @@
       </li>
     </template>
     <script src="./scripts/index.js" defer></script>
-    <script src="./scripts/validation.js" defer></script>
   </body>
 </html>
