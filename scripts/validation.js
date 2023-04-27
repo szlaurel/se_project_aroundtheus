@@ -3,21 +3,21 @@
 
 // shows the input error if the input doesn't pass validation
 
-const showInputError = (input, formEl, { errorClass }) => {
+const showInputError = (input, formEl, { InputErrorClass }) => {
   const errorSpan = formEl.querySelector(`#${input.id}-error`);
   // add error messsage/class
   console.log(input.validationMessage);
   errorSpan.textContent = input.validationMessage;
-  input.classList.add(errorClass);
+  input.classList.add(InputErrorClass);
 };
 
 //hides the input error
 
-const hideInputError = (input, formEl, { errorClass }) => {
+const hideInputError = (input, formEl, { InputErrorClass }) => {
   const errorSpan = formEl.querySelector(`#${input.id}-error`);
   // add error messsage/class
   errorSpan.textContent = " ";
-  input.classList.remove(errorClass);
+  input.classList.remove(InputErrorClass);
 };
 
 //checks to see if the inputs are valid and if their not they'll show error signs

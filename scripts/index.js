@@ -102,6 +102,13 @@ escButton(profileEditModal);
 // close pop up to the addCardModal with escape button
 escButton(addCardModal);
 
+// close pop up to the preview image modal with escape button
+escButton(previewImageModal);
+
+// close pop up to the preview image modal with click outside overlay.
+
+closeOnClickOut(previewImageModal);
+
 function renderCard(cardData, wrapper) {
   const cardElement = getCardElement(cardData);
   wrapper.prepend(cardElement);

@@ -95,23 +95,32 @@
   color: #000;
 }
 
+.modal__error {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #ff0000;
+}
+
 .modal__error_visible {
   font-family: "Inter", arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
-  border-bottom: 1px solid #ff0000;
+  color: red;
+  visibility: visible;
 }
 
 .modal__input_type_error {
-  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
   visibility: visible;
-  color: red;
+  border-bottom: 1px solid #ff0000;
 }
 
 .modal__input:last-of-type {
