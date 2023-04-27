@@ -105,12 +105,6 @@
 }
 
 .modal__error_visible {
-  font-family: "Inter", arial, sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 15px;
-  color: red;
   visibility: visible;
 }
 
@@ -119,7 +113,6 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
-  visibility: visible;
   border-bottom: 1px solid #ff0000;
 }
 
