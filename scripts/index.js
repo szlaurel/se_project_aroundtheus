@@ -25,21 +25,28 @@ const initialCards = [
   },
 ];
 
+// Variables that belong to profile-edit-modal
+const profileEditModal = document.querySelector("#profile-edit-modal");
+const profileEditForm = profileEditModal.querySelector(".modal__form");
+const profileEditButton = document.querySelector("#profile-edit-button");
+const profileModalCloseButton = profileEditModal.querySelector(".modal__close");
+const profileTitle = document.querySelector(".profile__title");
+const profileDescription = document.querySelector(".profile__description");
+const profileContainer = document.querySelector("#profile-container");
+
+// Variables that belong to the add-card-modal
+const addCardModal = document.querySelector("#add-card-modal");
+const addCardForm = addCardModal.querySelector(".modal__form");
+const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
+const addNewCardButton = document.querySelector(".profile__add-button");
+const addCardContainer = addCardModal.querySelector("#add-card-container");
+
 //Wrappers aka div wrappers from the html document
 const cardsWrap = document.querySelector(".cards__list");
-const profileEditModal = document.querySelector("#profile-edit-modal");
-const addCardModal = document.querySelector("#add-card-modal");
-const profileEditForm = profileEditModal.querySelector(".modal__form");
-const addCardForm = addCardModal.querySelector(".modal__form");
 const previewImageModal = document.querySelector("#preview-image-modal");
 
 //Buttons and other DOM nodes (Document Object Model)
-const profileEditButton = document.querySelector("#profile-edit-button");
-const profileModalCloseButton = profileEditModal.querySelector(".modal__close");
-const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
-const profileTitle = document.querySelector(".profile__title");
-const profileDescription = document.querySelector(".profile__description");
-const addNewCardButton = document.querySelector(".profile__add-button");
+
 //We'll be able to target the image src by using the preview image variable here VVVVV
 const previewImage = previewImageModal.querySelector(".modal__image");
 const previewImageName = previewImageModal.querySelector(".modal__image-name");
@@ -65,6 +72,37 @@ function openPopUp(modal) {
 function closePopUp(modal) {
   modal.classList.remove("modal__opened");
 }
+
+// add escape button to be able to close the overlay
+// need to add to the whole document to make it work properly
+function escButton(modal) {
+  document.addEventListener("keydown", function (evt) {
+    if (evt.key === "Escape") {
+      closePopUp(modal);
+    } else {
+      return;
+    }
+  });
+}
+
+function closeOnClickOut(formEl) {
+  formEl.addEventListener("click", function (evt) {
+    console.log(evt.target);
+    if (!formEl.matches("modal__container") && formEl.contains(evt.target)) {
+      closePopUp(formEl);
+    } else {
+      return;
+    }
+  });
+}
+
+closeOnClickOut(profileEditForm);
+
+// close pop up to the profileEditModal with escape button
+escButton(profileEditModal);
+
+// close pop up to the addCardModal with escape button
+escButton(addCardModal);
 
 function renderCard(cardData, wrapper) {
   const cardElement = getCardElement(cardData);
