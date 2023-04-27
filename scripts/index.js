@@ -87,16 +87,14 @@ function escButton(modal) {
 
 function closeOnClickOut(formEl) {
   formEl.addEventListener("click", function (evt) {
-    console.log(evt.target);
-    if (!formEl.matches("modal__container") && formEl.contains(evt.target)) {
+    console.log(evt.target.classList);
+    if (evt.target.classList.contains("modal")) {
       closePopUp(formEl);
-    } else {
-      return;
     }
   });
 }
 
-closeOnClickOut(profileEditForm);
+closeOnClickOut(profileEditModal);
 
 // close pop up to the profileEditModal with escape button
 escButton(profileEditModal);
