@@ -40,6 +40,7 @@ const addCardForm = addCardModal.querySelector(".modal__form");
 const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
 const addNewCardButton = document.querySelector(".profile__add-button");
 const addCardContainer = addCardModal.querySelector("#add-card-container");
+const addCardSubmitButton = addCardModal.querySelector(".modal__button");
 
 //Wrappers aka div wrappers from the html document
 const cardsWrap = document.querySelector(".cards__list");
@@ -67,26 +68,39 @@ const cardTemplate =
 
 function openPopUp(modal) {
   modal.classList.add("modal__opened");
+  document.addEventListener("keydown", closeModalByEscape);
 }
 
 function closePopUp(modal) {
   modal.classList.remove("modal__opened");
+  document.removeEventListener("keydown", closeModalByEscape);
 }
 
 // add escape button to be able to close the overlay
 // need to add to the whole document to make it work properly
-function escButton(modal) {
-  document.addEventListener("keydown", function (evt) {
-    if (evt.key === "Escape") {
-      closePopUp(modal);
-    } else {
-      return;
-    }
-  });
+// function escButton(modal) {
+//   document.addEventListener("keydown", function (evt) {
+//     if (evt.key === "Escape") {
+//       closePopUp(modal);
+//     } else {
+//       return;
+//     }
+//   });
+// }
+
+// function for keydown event
+function closeModalByEscape(evt) {
+  if (evt.key === "Escape") {
+    console.log(evt.target);
+    // search for an opened modal
+    const openedModal = document.querySelector(".modal__opened");
+    // close it
+    closePopUp(openedModal);
+  }
 }
 
 function closeOnClickOut(formEl) {
-  formEl.addEventListener("click", function (evt) {
+  formEl.addEventListener("mousedown", function (evt) {
     console.log(evt.target.classList);
     if (evt.target.classList.contains("modal")) {
       closePopUp(formEl);
@@ -96,18 +110,20 @@ function closeOnClickOut(formEl) {
 
 closeOnClickOut(profileEditModal);
 
-// close pop up to the profileEditModal with escape button
-escButton(profileEditModal);
+// // close pop up to the profileEditModal with escape button
+// escButton(profileEditModal);
 
-// close pop up to the addCardModal with escape button
-escButton(addCardModal);
+// // close pop up to the addCardModal with escape button
+// escButton(addCardModal);
 
-// close pop up to the preview image modal with escape button
-escButton(previewImageModal);
+// // close pop up to the preview image modal with escape button
+// escButton(previewImageModal);
 
 // close pop up to the preview image modal with click outside overlay.
 
 closeOnClickOut(previewImageModal);
+
+closeOnClickOut(addCardModal);
 
 function renderCard(cardData, wrapper) {
   const cardElement = getCardElement(cardData);
@@ -170,6 +186,8 @@ function handleAddCardFormSubmit(evt) {
   renderCard({ name, link }, cardsWrap);
   closePopUp(addCardModal);
   addCardForm.reset();
+  // added the toggleButtonState from validation.js
+  toggleButtonState({ name, link }, addCardSubmitButton, config);
 }
 
 //Form Listeners
@@ -184,7 +202,9 @@ profileModalCloseButton.addEventListener("click", () => {
 profileEditForm.addEventListener("submit", handleProfileSubmit);
 
 //Add new card button
-addNewCardButton.addEventListener("click", () => openPopUp(addCardModal));
+addNewCardButton.addEventListener("click", () => {
+  openPopUp(addCardModal);
+});
 addCardModalCloseButton.addEventListener("click", () => {
   closePopUp(addCardModal);
 });

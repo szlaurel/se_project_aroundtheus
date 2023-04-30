@@ -139,6 +139,11 @@
   transition: ease-in-out 0.6s;
 }
 
+.modal__button:hover:not(:disabled) {
+  /*selects not disabled hovered button*/
+  opacity: 0.6;
+}
+
 .modal__button_disabled {
   opacity: 0.2;
   border: 1px solid #000000;
@@ -146,8 +151,9 @@
   cursor: default;
 }
 
-.modal__button:hover {
-  opacity: 0.6s;
+.modal__button_disabled:hover {
+  /* selects disabled hovered button */
+  opacity: 0.2;
 }
 
 .modal__image {

@@ -47,7 +47,7 @@ function enableButton(submitButton, options) {
 }
 
 const toggleButtonState = (inputList, submitButton, options) => {
-  console.log("hasValid", hasValidInputs(inputList));
+  // console.log("hasValid", hasValidInputs(inputList));
   // if all inputs are valid
   if (!hasValidInputs(inputList)) {
     disableButton(submitButton, options);
@@ -62,6 +62,7 @@ const setEventListeners = (formEl, options) => {
   const inputList = [...formEl.querySelectorAll(options.inputSelector)];
   const submitButton = formEl.querySelector(options.submitButtonSelector);
   inputList.forEach((input) => {
+    toggleButtonState(inputList, submitButton, options);
     input.addEventListener("input", (evt) => {
       // check validity
       checkInputValidity(formEl, input, options);
@@ -80,20 +81,19 @@ const enableValidation = (options) => {
   });
 };
 
-enableValidation({
+const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__button",
   inactiveButtonClass: "modal__button_disabled",
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
-});
+};
+
+enableValidation(config);
 
 // forms
 // inputs forms
 // input ===
 
-// tasks
-// all thats left to do is to code the button toggle state
-// next you need to fix the input within the parameters and change it to "inputEl"
-// after that you need to code the styles properly when the errors come in the spacing underneath the title isnt spacing so far apart
+// tasks:
