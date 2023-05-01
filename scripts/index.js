@@ -91,7 +91,6 @@ function closePopUp(modal) {
 // function for keydown event
 function closeModalByEscape(evt) {
   if (evt.key === "Escape") {
-    console.log(evt.target);
     // search for an opened modal
     const openedModal = document.querySelector(".modal__opened");
     // close it
@@ -99,7 +98,7 @@ function closeModalByEscape(evt) {
   }
 }
 
-function closeOnClickOut(formEl) {
+function addClickOutListener(formEl) {
   formEl.addEventListener("mousedown", function (evt) {
     console.log(evt.target.classList);
     if (evt.target.classList.contains("modal")) {
@@ -108,7 +107,7 @@ function closeOnClickOut(formEl) {
   });
 }
 
-closeOnClickOut(profileEditModal);
+addClickOutListener(profileEditModal);
 
 // // close pop up to the profileEditModal with escape button
 // escButton(profileEditModal);
@@ -121,9 +120,9 @@ closeOnClickOut(profileEditModal);
 
 // close pop up to the preview image modal with click outside overlay.
 
-closeOnClickOut(previewImageModal);
+addClickOutListener(previewImageModal);
 
-closeOnClickOut(addCardModal);
+addClickOutListener(addCardModal);
 
 function renderCard(cardData, wrapper) {
   const cardElement = getCardElement(cardData);
@@ -183,11 +182,12 @@ function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
+
+  console.log(inputList);
   renderCard({ name, link }, cardsWrap);
   closePopUp(addCardModal);
   addCardForm.reset();
   // added the toggleButtonState from validation.js
-  toggleButtonState({ name, link }, addCardSubmitButton, config);
 }
 
 //Form Listeners
@@ -203,6 +203,9 @@ profileEditForm.addEventListener("submit", handleProfileSubmit);
 
 //Add new card button
 addNewCardButton.addEventListener("click", () => {
+  const inputList = [...addCardForm.querySelectorAll(config.inputSelector)];
+  const submitButton = addCardForm.querySelector(config.submitButtonSelector);
+  toggleButtonState(inputList, submitButton, config);
   openPopUp(addCardModal);
 });
 addCardModalCloseButton.addEventListener("click", () => {

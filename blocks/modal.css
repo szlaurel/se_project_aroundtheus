@@ -137,6 +137,7 @@
   text-align: center;
   color: #ffffff;
   transition: ease-in-out 0.6s;
+  border: none;
 }
 
 .modal__button:hover:not(:disabled) {
