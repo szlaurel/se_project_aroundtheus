@@ -182,7 +182,7 @@ function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
-  const inputList = [...addCardForm.querySelectorAll(config.inputSelector)];
+
   console.log(inputList);
   renderCard({ name, link }, cardsWrap);
   closePopUp(addCardModal);
