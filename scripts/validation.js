@@ -91,9 +91,3 @@ const config = {
 };
 
 enableValidation(config);
-
-// forms
-// inputs forms
-// input ===
-
-// tasks:
