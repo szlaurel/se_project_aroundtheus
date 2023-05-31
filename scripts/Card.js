@@ -16,7 +16,9 @@
 /*                           Card Class and its code                          */
 /* -------------------------------------------------------------------------- */
 
-class Card {
+// I think that the cardSelector is supposed to be the card template
+
+export class Card {
   constructor(data, cardSelector) {
     this._name = data.name;
     this._link = data.link;
@@ -38,24 +40,18 @@ class Card {
   }
 
   _handleLikeIcon() {
-    likeButton.addEventListener("click", () => {
-      likeButton.classList.toggle("card__like-button_active");
-    });
+    likeButton.classList.toggle("card__like-button_active");
   }
 
   _handleDeleteCard() {
-    deleteButton.addEventListener("click", () => {
-      cardElement.remove();
-    });
+    cardElement.remove();
   }
 
   _handlePreviewPicture() {
-    cardImageEl.addEventListener("click", () => {
-      previewImage.src = this._link;
-      previewImage.alt = this._name;
-      previewImageName.textContent = this._name;
-      openPopUp(previewImageModal);
-    });
+    this._element.querySelector(".card__image").classList.add("modal__opened");
+    previewImage.src = this._link;
+    previewImage.alt = this._name;
+    previewImageName.textContent = this._name;
   }
 
   _getTemplate() {
@@ -73,6 +69,13 @@ class Card {
     ).style.backgroundImage = `url(${this._link})`;
     this._element.querySelector(".card__title").textContent = this._name;
     this._setEventListeners();
+    return this._element;
+  }
+
+  testMethod() {
+    console.log(this._link);
+    console.log(this._name);
+    console.log(this._getTemplate());
   }
 }
 

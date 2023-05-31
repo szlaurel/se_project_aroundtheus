@@ -1,5 +1,11 @@
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
+import {
+  openPopUp,
+  closePopUp,
+  closeModalByEscape,
+  addClickOutListener,
+} from "./utils.js";
 
 /* -------------------------------------------------------------------------- */
 /*                            Object with card info                           */
@@ -31,6 +37,15 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
+
+/* -------------------------------------------------------------------------- */
+/*                               Card data test                               */
+/* -------------------------------------------------------------------------- */
+
+// const testCard = {
+//   name: "Yosemite Valley",
+//   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+// };
 
 /* -------------------------------------------------------------------------- */
 /*                Variables that belong to profile-edit-modal               */
@@ -113,46 +128,27 @@ addFormValidator.enableValidation();
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 
-function openPopUp(modal) {
-  modal.classList.add("modal__opened");
-  document.addEventListener("keydown", closeModalByEscape);
-}
-
-function closePopUp(modal) {
-  modal.classList.remove("modal__opened");
-  document.removeEventListener("keydown", closeModalByEscape);
-}
-
-// function for keydown event
-function closeModalByEscape(evt) {
-  if (evt.key === "Escape") {
-    // search for an opened modal
-    const openedModal = document.querySelector(".modal__opened");
-    // close it
-    closePopUp(openedModal);
-  }
-}
-
-function addClickOutListener(formEl) {
-  formEl.addEventListener("mousedown", function (evt) {
-    console.log(evt.target.classList);
-    if (evt.target.classList.contains("modal")) {
-      closePopUp(formEl);
-    }
-  });
-}
+/* -------------------------------------------------------------------------- */
+/*                             Click out listeners                            */
+/* -------------------------------------------------------------------------- */
 
 addClickOutListener(profileEditModal);
-
 addClickOutListener(previewImageModal);
-
 addClickOutListener(addCardModal);
+
+/* -------------------------------------------------------------------------- */
+/*                           Function to RenderCard                           */
+/* -------------------------------------------------------------------------- */
 
 function renderCard(cardData, wrapper) {
   const card = new Card(cardData, cardSelector);
   // const cardElement = getCardElement(cardData);
   wrapper.prepend(card.getView());
 }
+
+/* -------------------------------------------------------------------------- */
+/*                     Functions to deal with profile form                    */
+/* -------------------------------------------------------------------------- */
 
 function fillProfileForm() {
   profileTitleInput.value = profileTitle.textContent;
@@ -213,7 +209,6 @@ function handleAddCardFormSubmit(evt) {
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
 
-  console.log(inputList);
   renderCard({ name, link }, cardsWrap);
   closePopUp(addCardModal);
   addCardForm.reset();
@@ -239,13 +234,7 @@ profileEditForm.addEventListener("submit", handleProfileSubmit);
 /* -------------------------------------------------------------------------- */
 
 addNewCardButton.addEventListener("click", () => {
-  const inputList = [
-    ...addCardForm.querySelectorAll(validationSettings.inputSelector),
-  ];
-  const submitButton = addCardForm.querySelector(
-    validationSettings.submitButtonSelector
-  );
-  toggleButtonState(inputList, submitButton, validationSettings);
+  addFormValidator.resetValidation();
   openPopUp(addCardModal);
 });
 addCardModalCloseButton.addEventListener("click", () => {
