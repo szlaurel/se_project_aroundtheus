@@ -1,3 +1,5 @@
+import { openPopUp } from "./utils.js";
+
 // We left off at 41:46 in the project 7 coding session
 
 //Class Card should only be in charge of anything that has to deal with the card itself.
@@ -8,10 +10,8 @@
 /*                     Tasks requiring for the Card Class                     */
 /* -------------------------------------------------------------------------- */
 
-// 1. need to copy over the code regarding the anything that has to deal with the modal like opening, closing, escape button and the click out event.
-// 2. need to add the code from the set event listener and combine it with its respective handlers within the card class
-// 3. need to wire everything to the index.js file and make sure that everything works
-//
+// 1. need to fix the handles for likeicon, deletecard, and preview picture to make sure they work
+
 /* -------------------------------------------------------------------------- */
 /*                           Card Class and its code                          */
 /* -------------------------------------------------------------------------- */
@@ -29,29 +29,35 @@ export class Card {
   _setEventListeners() {
     this._element
       .querySelector(".card__like-button")
-      .addEventListener("click", () => this._handleLikeIcon);
+      .addEventListener("click", () => this._handleLikeIcon());
     this._element
       .querySelector(".card__delete-button")
-      .addEventListener("click", () => this._handleDeleteCard);
+      .addEventListener("click", () => this._handleDeleteCard());
     this._element
       .querySelector(".card__image")
-      .addEventListener("click", () => this._handlePreviewPicture);
+      .addEventListener("click", () => this._handlePreviewPicture());
     //We can shorten out the cardImageEl by making a function within this class and passing it through for simplicity sakes, but focus on making the rough end of the code.
   }
 
   _handleLikeIcon() {
+    const likeButton = this._element.querySelector(".card__like-button");
     likeButton.classList.toggle("card__like-button_active");
   }
 
   _handleDeleteCard() {
-    cardElement.remove();
+    this._element.remove();
   }
 
   _handlePreviewPicture() {
+    const previewImageModal = document.querySelector("#preview-image-modal");
+    const previewImage = previewImageModal.querySelector(".modal__image");
+    const previewImageName =
+      previewImageModal.querySelector(".modal__image-name");
     this._element.querySelector(".card__image").classList.add("modal__opened");
     previewImage.src = this._link;
     previewImage.alt = this._name;
     previewImageName.textContent = this._name;
+    openPopUp(previewImageModal);
   }
 
   _getTemplate() {

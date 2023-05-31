@@ -39,15 +39,6 @@ const initialCards = [
 ];
 
 /* -------------------------------------------------------------------------- */
-/*                               Card data test                               */
-/* -------------------------------------------------------------------------- */
-
-// const testCard = {
-//   name: "Yosemite Valley",
-//   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-// };
-
-/* -------------------------------------------------------------------------- */
 /*                Variables that belong to profile-edit-modal               */
 /* -------------------------------------------------------------------------- */
 const profileEditModal = document.querySelector("#profile-edit-modal");
@@ -159,40 +150,6 @@ function updateProfileValues() {
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
 }
-
-/* -------------------------------------------------------------------------- */
-/*                          Function for the cards                          */
-/* -------------------------------------------------------------------------- */
-//all the variables inside the getCardElement are only local scope which means you can't pull them out of the function and use them anywhere else
-
-// function getCardElement(cardData) {
-//   const cardElement = cardTemplate.cloneNode(true);
-//   const cardImageEl = cardElement.querySelector(".card__image");
-//   const cardTitleEl = cardElement.querySelector(".card__title");
-//   const likeButton = cardElement.querySelector(".card__like-button");
-//   const deleteButton = cardElement.querySelector(".card__delete-button");
-//   deleteButton.addEventListener("click", () => {
-//     cardElement.remove();
-//   });
-
-//   //this is where the code for the preview image modal is supposed to be VVV
-//   //this is also where the card data lies because this is where it pulls the information from within the array
-//   cardImageEl.addEventListener("click", () => {
-//     previewImage.src = cardData.link;
-//     previewImage.alt = cardData.name;
-//     previewImageName.textContent = cardData.name;
-//     openPopUp(previewImageModal);
-//   });
-
-//   likeButton.addEventListener("click", () => {
-//     likeButton.classList.toggle("card__like-button_active");
-//   });
-
-//   cardImageEl.src = cardData.link;
-//   cardImageEl.alt = cardData.name;
-//   cardTitleEl.textContent = cardData.name;
-//   return cardElement;
-// }
 
 /* -------------------------------------------------------------------------- */
 /*                          function for form submit                          */
