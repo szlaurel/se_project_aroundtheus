@@ -1,4 +1,4 @@
-import { openPopUp } from "./utils.js";
+import { openPopUp } from "./utils/utils.js";
 
 // We left off at 41:46 in the project 7 coding session
 

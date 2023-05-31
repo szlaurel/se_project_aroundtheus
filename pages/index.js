@@ -1,11 +1,11 @@
-import FormValidator from "./FormValidator.js";
-import Card from "./Card.js";
+import FormValidator from "./components/FormValidator.js";
+import Card from "./components/Card.js";
 import {
   openPopUp,
   closePopUp,
   closeModalByEscape,
   addClickOutListener,
-} from "./utils.js";
+} from "./utils/utils.js";
 
 /* -------------------------------------------------------------------------- */
 /*                            Object with card info                           */
