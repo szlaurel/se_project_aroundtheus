@@ -1,4 +1,4 @@
-import { openPopUp } from "./utils/utils.js";
+import { openPopUp } from "../utils/utils.js";
 
 // We left off at 41:46 in the project 7 coding session
 
@@ -53,7 +53,6 @@ export class Card {
     const previewImage = previewImageModal.querySelector(".modal__image");
     const previewImageName =
       previewImageModal.querySelector(".modal__image-name");
-    this._element.querySelector(".card__image").classList.add("modal__opened");
     previewImage.src = this._link;
     previewImage.alt = this._name;
     previewImageName.textContent = this._name;
@@ -70,9 +69,7 @@ export class Card {
   getView() {
     this._element = this._getTemplate();
     this._element.querySelector(".card__like-button");
-    this._element.querySelector(
-      ".card__image"
-    ).style.backgroundImage = `url(${this._link})`;
+    this._element.querySelector(".card__image").src = this._link;
     this._element.querySelector(".card__title").textContent = this._name;
     this._setEventListeners();
     return this._element;

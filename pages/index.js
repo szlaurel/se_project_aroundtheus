@@ -1,11 +1,11 @@
-import FormValidator from "./components/FormValidator.js";
-import Card from "./components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
 import {
   openPopUp,
   closePopUp,
   closeModalByEscape,
   addClickOutListener,
-} from "./utils/utils.js";
+} from "../utils/utils.js";
 
 /* -------------------------------------------------------------------------- */
 /*                            Object with card info                           */
@@ -85,10 +85,11 @@ const cardTitleInput = addCardModal.querySelector(".modal__input_type_title");
 const cardUrlInput = addCardModal.querySelector(".modal__input_type_url");
 
 /* -------------------------------------------------------------------------- */
-/*                             Validation settings                            */
+/*                  Validation settings and the form element                  */
 /* -------------------------------------------------------------------------- */
 
 const validationSettings = {
+  formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__button",
   inactiveButtonClass: "modal__button_disabled",
@@ -96,15 +97,13 @@ const validationSettings = {
   errorClass: "modal__error_visible",
 };
 
-/* -------------------------------------------------------------------------- */
-/*                                Card selector                               */
-/* -------------------------------------------------------------------------- */
-
-const cardSelector = "#card-template";
+const formElement = document.querySelector(validationSettings.formSelector);
 
 /* -------------------------------------------------------------------------- */
-/*                              Form Validators                             */
+/*                    Form validators from FormValidator.js                   */
 /* -------------------------------------------------------------------------- */
+
+const formValidator = new FormValidator(validationSettings, formElement);
 
 const editFormValidator = new FormValidator(
   validationSettings,
@@ -113,11 +112,18 @@ const editFormValidator = new FormValidator(
 
 const addFormValidator = new FormValidator(validationSettings, addCardForm);
 
+formValidator.enableValidation();
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
+
+/* -------------------------------------------------------------------------- */
+/*                                Card selector                               */
+/* -------------------------------------------------------------------------- */
+
+const cardSelector = "#card-template";
 
 /* -------------------------------------------------------------------------- */
 /*                             Click out listeners                            */
@@ -133,7 +139,6 @@ addClickOutListener(addCardModal);
 
 function renderCard(cardData, wrapper) {
   const card = new Card(cardData, cardSelector);
-  // const cardElement = getCardElement(cardData);
   wrapper.prepend(card.getView());
 }
 
@@ -165,7 +170,6 @@ function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
-
   renderCard({ name, link }, cardsWrap);
   closePopUp(addCardModal);
   addCardForm.reset();
