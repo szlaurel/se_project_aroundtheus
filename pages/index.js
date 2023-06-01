@@ -103,8 +103,6 @@ const formElement = document.querySelector(validationSettings.formSelector);
 /*                    Form validators from FormValidator.js                   */
 /* -------------------------------------------------------------------------- */
 
-const formValidator = new FormValidator(validationSettings, formElement);
-
 const editFormValidator = new FormValidator(
   validationSettings,
   profileEditForm
@@ -112,7 +110,6 @@ const editFormValidator = new FormValidator(
 
 const addFormValidator = new FormValidator(validationSettings, addCardForm);
 
-formValidator.enableValidation();
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
