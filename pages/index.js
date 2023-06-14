@@ -1,3 +1,12 @@
+/* -------------------------------------------------------------------------- */
+/*                                   Imports                                  */
+/* -------------------------------------------------------------------------- */
+
+import Section from "../components/Section.js";
+import Popup from "../components/Popup.js";
+import PopupWithForm from "../components/PopupWithForm";
+import PopupWithImage from "../components/PopupWithImage";
+import UserInfo from "../components/UserInfo";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import {
@@ -143,6 +152,9 @@ function renderCard(cardData, wrapper) {
 /*                     Functions to deal with profile form                    */
 /* -------------------------------------------------------------------------- */
 
+// these functions are located in the UserInfo.js file with updated keyvalue information.
+// this is where the UserInfo stuff should be located at.
+
 function fillProfileForm() {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
@@ -206,6 +218,10 @@ addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 previewImageCloseButton.addEventListener("click", () => {
   closePopUp(previewImageModal);
 });
+
+/* -------------------------------------------------------------------------- */
+/*                          New instantiates of code                          */
+/* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 /*                             //Render the cards                             */
