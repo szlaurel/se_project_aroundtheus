@@ -1,12 +1,11 @@
 /* -------------------------------------------------------------------------- */
 /*                                   Imports                                  */
 /* -------------------------------------------------------------------------- */
-
 import Section from "../components/Section.js";
 import Popup from "../components/Popup.js";
-import PopupWithForm from "../components/PopupWithForm";
-import PopupWithImage from "../components/PopupWithImage";
-import UserInfo from "../components/UserInfo";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import {
@@ -81,6 +80,7 @@ const previewImage = previewImageModal.querySelector(".modal__image");
 const previewImageName = previewImageModal.querySelector(".modal__image-name");
 const previewImageCloseButton =
   previewImageModal.querySelector(".modal__close");
+
 //place previewImageModal here and you need to write some code in the html document
 
 /* -------------------------------------------------------------------------- */
@@ -130,7 +130,7 @@ const cardTemplate =
 /* -------------------------------------------------------------------------- */
 
 const cardSelector = "#card-template";
-
+const cardListSelector = ".cards__list";
 /* -------------------------------------------------------------------------- */
 /*                             Click out listeners                            */
 /* -------------------------------------------------------------------------- */
@@ -143,9 +143,27 @@ addClickOutListener(addCardModal);
 /*                           Function to RenderCard                           */
 /* -------------------------------------------------------------------------- */
 
+const sectionRenderer = new Section(
+  {
+    items: initialCards,
+    renderer: (cardData) => {
+      const card = renderCard(cardData);
+      sectionRenderer.addItem(card);
+    },
+  },
+  cardListSelector
+);
+sectionRenderer.renderItems();
+
+const imagePreviewPopup = new PopupWithImage("#preview-image-modal");
+
+function handleCardClick(name, link) {
+  imagePreviewPopup.open(name, link);
+}
+
 function renderCard(cardData, wrapper) {
-  const card = new Card(cardData, cardSelector);
-  wrapper.prepend(card.getView());
+  const card = new Card(cardData, cardSelector, handleCardClick);
+  return card.getView();
 }
 
 /* -------------------------------------------------------------------------- */
@@ -220,8 +238,24 @@ previewImageCloseButton.addEventListener("click", () => {
 });
 
 /* -------------------------------------------------------------------------- */
-/*                          New instantiates of code                          */
+/*                           profileCard instantiate                          */
 /* -------------------------------------------------------------------------- */
+
+const profileCard = new PopupWithForm(
+  "#profile-edit-modal",
+  UserInfo.setUserInfo
+);
+
+profileCard.close();
+
+/* -------------------------------------------------------------------------- */
+/*                             newCard instantiate                            */
+/* -------------------------------------------------------------------------- */
+const newCard = new PopupWithForm("#add-card-modal");
+
+newCard.open();
+
+newCard.close();
 
 /* -------------------------------------------------------------------------- */
 /*                             //Render the cards                             */

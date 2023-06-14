@@ -1,29 +1,13 @@
 import { openPopUp } from "../utils/utils.js";
-
-// We left off at 41:46 in the project 7 coding session
-
-//Class Card should only be in charge of anything that has to deal with the card itself.
-
-// We need to use arrow functions when using them in the setEventListeners so that theres no error.
-
-/* -------------------------------------------------------------------------- */
-/*                     Tasks requiring for the Card Class                     */
-/* -------------------------------------------------------------------------- */
-
-// 1. need to fix the handles for likeicon, deletecard, and preview picture to make sure they work
-
-/* -------------------------------------------------------------------------- */
-/*                           Card Class and its code                          */
-/* -------------------------------------------------------------------------- */
-
-// I think that the cardSelector is supposed to be the card template
+//might need to import the PopupWithImage from the file in order to connect it probably maybe just in case heres the code, just uncomment
+// import PopupWithImage from "./PopupWithImage.js";
 
 export class Card {
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
-
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _setEventListeners() {
@@ -35,7 +19,9 @@ export class Card {
       .addEventListener("click", () => this._handleDeleteCard());
     this._element
       .querySelector(".card__image")
-      .addEventListener("click", () => this._handlePreviewPicture());
+      .addEventListener("click", () =>
+        this._handleCardClick(this._name, this._link)
+      );
     //We can shorten out the cardImageEl by making a function within this class and passing it through for simplicity sakes, but focus on making the rough end of the code.
   }
 
@@ -46,17 +32,6 @@ export class Card {
 
   _handleDeleteCard() {
     this._element.remove();
-  }
-
-  _handlePreviewPicture() {
-    const previewImageModal = document.querySelector("#preview-image-modal");
-    const previewImage = previewImageModal.querySelector(".modal__image");
-    const previewImageName =
-      previewImageModal.querySelector(".modal__image-name");
-    previewImage.src = this._link;
-    previewImage.alt = this._name;
-    previewImageName.textContent = this._name;
-    openPopUp(previewImageModal);
   }
 
   _getTemplate() {

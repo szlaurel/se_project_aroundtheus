@@ -1,7 +1,8 @@
-import { closePopUp } from "../utils/utils";
+import { closePopUp } from "../utils/utils.js";
 
 class Popup {
   constructor({ popupSelector }) {
+    console.log(popupSelector);
     this._popupElement = document.querySelector(popupSelector);
   }
 
