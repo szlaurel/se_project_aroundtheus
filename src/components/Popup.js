@@ -8,10 +8,12 @@ class Popup {
 
   open() {
     this._popupElement.classList.add("modal__opened");
+    this._handleEscClose();
   }
 
   close() {
     this._popupElement.classList.remove("modal__opened");
+    this._handleEscClose();
   }
 
   _handleEscClose() {
@@ -26,6 +28,7 @@ class Popup {
   setEventListeners() {
     this._closeButton = this._popupElement.querySelector(".modal__close");
     this._closeButton.addEventListener("click", () => {
+      console.log("click");
       this.close();
     });
     this._popupElement.addEventListener("click", function (evt) {

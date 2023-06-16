@@ -158,9 +158,13 @@ sectionRenderer.renderItems();
 
 const imagePreviewPopup = new PopupWithImage("#preview-image-modal");
 
+imagePreviewPopup.close();
+
 function handleCardClick(name, link) {
   imagePreviewPopup.open(name, link);
 }
+
+imagePreviewPopup.close();
 
 function renderCard(cardData, wrapper) {
   const card = new Card(cardData, cardSelector, handleCardClick);
@@ -235,30 +239,30 @@ addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 /*                          //Preview modal listeners                         */
 /* -------------------------------------------------------------------------- */
 previewImageCloseButton.addEventListener("click", () => {
-  closePopUp(previewImageModal);
+  // closePopUp(previewImageModal);
+  imagePreviewPopup.close();
 });
 
 /* -------------------------------------------------------------------------- */
 /*                           profileCard instantiate                          */
 /* -------------------------------------------------------------------------- */
 
-const profileCard = new PopupWithForm(
-  "#profile-edit-modal",
-  UserInfo.setUserInfo
-);
+// const userInfo = new UserInfo({
+//   name: profileTitleInput,
+//   job: profileDescriptionInput,
+// });
 
-profileCard.close();
+// const profileCard = new PopupWithForm(
+//   "#profile-edit-modal",
+//   userInfo.setUserInfo()
+// );
+
+// profileCard._getInputValues({
+//   name: profileTitleInput,
+//   job: profileDescriptionInput,
+// });
 
 /* -------------------------------------------------------------------------- */
 /*                             newCard instantiate                            */
 /* -------------------------------------------------------------------------- */
 const newCard = new PopupWithForm("#add-card-modal");
-
-newCard.open();
-
-newCard.close();
-
-/* -------------------------------------------------------------------------- */
-/*                             //Render the cards                             */
-/* -------------------------------------------------------------------------- */
-initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));

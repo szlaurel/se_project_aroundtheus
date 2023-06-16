@@ -1,4 +1,3 @@
-import { openPopUp } from "../utils/utils.js";
 //might need to import the PopupWithImage from the file in order to connect it probably maybe just in case heres the code, just uncomment
 // import PopupWithImage from "./PopupWithImage.js";
 

@@ -25,8 +25,7 @@ class PopupWithForm extends Popup {
   }
 
   setUserInfo() {
-    const setUserInfo = UserInfo.setUserinfo();
-    super.setUserInfo;
+    super.setUserInfo();
   }
 }
 
