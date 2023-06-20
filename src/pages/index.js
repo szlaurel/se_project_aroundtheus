@@ -209,31 +209,31 @@ function handleAddCardFormSubmit(evt) {
 }
 
 /* -------------------------------------------------------------------------- */
-/*                               Form Listeners                               */
+/*                        profile-edit-button OLD CODE                        */
 /* -------------------------------------------------------------------------- */
 
-profileEditButton.addEventListener("click", () => {
-  fillProfileForm();
-  openPopUp(profileEditModal);
-});
+// profileEditButton.addEventListener("click", () => {
+//   fillProfileForm();
+//   openPopUp(profileEditModal);
+// });
 
-profileModalCloseButton.addEventListener("click", () => {
-  closePopUp(profileEditModal);
-});
-profileEditForm.addEventListener("submit", handleProfileSubmit);
+// profileModalCloseButton.addEventListener("click", () => {
+//   closePopUp(profileEditModal);
+// });
+// profileEditForm.addEventListener("submit", handleProfileSubmit);
 
 /* -------------------------------------------------------------------------- */
-/*                             Add new card button                            */
+/*                            add-new-card OLD CODE                           */
 /* -------------------------------------------------------------------------- */
 
-addNewCardButton.addEventListener("click", () => {
-  addFormValidator.resetValidation();
-  openPopUp(addCardModal);
-});
-addCardModalCloseButton.addEventListener("click", () => {
-  closePopUp(addCardModal);
-});
-addCardForm.addEventListener("submit", handleAddCardFormSubmit);
+// addNewCardButton.addEventListener("click", () => {
+//   addFormValidator.resetValidation();
+//   openPopUp(addCardModal);
+// });
+// addCardModalCloseButton.addEventListener("click", () => {
+//   closePopUp(addCardModal);
+// });
+// addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 
 /* -------------------------------------------------------------------------- */
 /*                          //Preview modal listeners                         */
@@ -246,21 +246,25 @@ previewImageCloseButton.addEventListener("click", () => {
 /* -------------------------------------------------------------------------- */
 /*                           profileCard instantiate                          */
 /* -------------------------------------------------------------------------- */
+const userInfo = new UserInfo({
+  name: profileTitleInput,
+  job: profileDescriptionInput,
+});
 
-// const userInfo = new UserInfo({
-//   name: profileTitleInput,
-//   job: profileDescriptionInput,
-// });
+const profileCard = new PopupWithForm({
+  popupSelector: "#profile-edit-modal",
+  handleFormSubmit: userInfo.setUserInfo({
+    name: profileTitleInput,
+    job: profileDescriptionInput,
+  }),
+});
 
-// const profileCard = new PopupWithForm(
-//   "#profile-edit-modal",
-//   userInfo.setUserInfo()
-// );
+profileCard.open();
 
-// profileCard._getInputValues({
-//   name: profileTitleInput,
-//   job: profileDescriptionInput,
-// });
+profileCard._getInputValues({
+  name: profileTitleInput,
+  job: profileDescriptionInput,
+});
 
 /* -------------------------------------------------------------------------- */
 /*                             newCard instantiate                            */
