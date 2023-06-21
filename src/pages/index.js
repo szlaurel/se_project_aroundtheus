@@ -134,9 +134,9 @@ const userInfo = new UserInfo({
 });
 
 profileEditButton.addEventListener("click", () => {
-  const getInfo = userInfo.getUserInfo();
-  profileTitleInput.value = getInfo.name;
-  profileDescriptionInput.value = getInfo.job;
+  const grabInfo = userInfo.getUserInfo();
+  profileTitleInput.value = grabInfo.name;
+  profileDescriptionInput.value = grabInfo.job;
   profileCard.open();
 });
 
@@ -179,7 +179,6 @@ const newCard = new PopupWithForm({
     // const name = cardTitleInput.value;
     // const link = cardUrlInput.value;
     newCard.close();
-    addCardForm.reset();
   },
 });
 
