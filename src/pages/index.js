@@ -114,7 +114,7 @@ const sectionRenderer = new Section(
 sectionRenderer.renderItems();
 
 const imagePreviewPopup = new PopupWithImage("#preview-image-modal");
-
+imagePreviewPopup.setEventListeners();
 function handleCardClick(name, link) {
   imagePreviewPopup.open(name, link);
 }
@@ -147,13 +147,6 @@ profileEditButton.addEventListener("click", () => {
 addNewCardButton.addEventListener("click", () => {
   addFormValidator.resetValidation();
   newCard.open();
-});
-//
-/* -------------------------------------------------------------------------- */
-/*                          //Preview modal listeners                         */
-/* -------------------------------------------------------------------------- */
-previewImageCloseButton.addEventListener("click", () => {
-  imagePreviewPopup.close();
 });
 
 /* -------------------------------------------------------------------------- */
