@@ -36,7 +36,7 @@ class Popup {
     this._popupElement.addEventListener("click", function (evt) {
       console.log(evt.target.classList);
       if (evt.target.classList.contains("modal")) {
-        this.close();
+        this.close;
       }
     });
   }
