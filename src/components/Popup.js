@@ -1,5 +1,3 @@
-import { closePopUp } from "../utils/utils.js";
-
 class Popup {
   constructor({ popupSelector }) {
     console.log(popupSelector);
@@ -23,7 +21,7 @@ class Popup {
       // search for an opened modal
       const openedModal = document.querySelector(".modal__opened");
       // close it
-      closePopUp(openedModal);
+      this.close();
     }
   }
 

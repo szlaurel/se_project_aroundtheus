@@ -9,38 +9,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
-import { openPopUp, closePopUp, addClickOutListener } from "../utils/utils.js";
-
-/* -------------------------------------------------------------------------- */
-/*                            Object with card info                           */
-/* -------------------------------------------------------------------------- */
-
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
+import { initialCards } from "../utils/constants.js";
 
 /* -------------------------------------------------------------------------- */
 /*                Variables that belong to profile-edit-modal               */
@@ -127,13 +96,6 @@ const cardTemplate =
 
 const cardSelector = "#card-template";
 const cardListSelector = ".cards__list";
-/* -------------------------------------------------------------------------- */
-/*                             Click out listeners                            */
-/* -------------------------------------------------------------------------- */
-
-addClickOutListener(profileEditModal);
-addClickOutListener(previewImageModal);
-// addClickOutListener(addCardModal);
 
 /* -------------------------------------------------------------------------- */
 /*                           Function to RenderCard                           */
@@ -163,46 +125,6 @@ function renderCard(cardData, wrapper) {
 }
 
 /* -------------------------------------------------------------------------- */
-/*                     Functions to deal with profile form                    */
-/* -------------------------------------------------------------------------- */
-
-// these functions are located in the UserInfo.js file with updated keyvalue information.
-// this is where the UserInfo stuff should be located at.
-
-function fillProfileForm() {
-  profileTitleInput.value = profileTitle.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
-}
-
-// function updateProfileValues() {
-//   profileTitle.textContent = profileTitleInput.value;
-//   profileDescription.textContent = profileDescriptionInput.value;
-// }
-
-/* -------------------------------------------------------------------------- */
-/*                          function for form submit                          */
-/* -------------------------------------------------------------------------- */
-
-// function handleProfileSubmit(evt) {
-//   evt.preventDefault();
-//   updateProfileValues();
-//   closePopUp(profileEditModal);
-// }
-
-//took all the code for down below and put it destructuring function
-
-// function handleAddCardFormSubmit(evt) {
-//   evt.preventDefault();
-//   const name = cardTitleInput.value;
-//   const link = cardUrlInput.value;
-//   renderCard({ name, link }, cardsWrap);
-//   closePopUp(addCardModal);
-//   addCardForm.reset();
-// }
-
-// added the toggleButtonState from validation.js
-
-/* -------------------------------------------------------------------------- */
 /*                        profile-edit-button OLD CODE                        */
 /* -------------------------------------------------------------------------- */
 
@@ -211,20 +133,12 @@ const userInfo = new UserInfo({
   jobSelector: ".profile__description",
 });
 
-// userInfo.setUserInfo({
-//   name: profileTitle,
-//   job: profileDescription,
-// });
-
 profileEditButton.addEventListener("click", () => {
-  fillProfileForm();
-  openPopUp(profileEditModal);
+  const getInfo = userInfo.getUserInfo();
+  profileTitleInput.value = getInfo.name;
+  profileDescriptionInput.value = getInfo.job;
+  profileCard.open();
 });
-
-// profileModalCloseButton.addEventListener("click", () => {
-//   closePopUp(profileEditModal);
-// });
-// profileEditForm.addEventListener("submit", handleProfileSubmit);
 
 /* -------------------------------------------------------------------------- */
 /*                            add-new-card OLD CODE                           */
@@ -232,19 +146,8 @@ profileEditButton.addEventListener("click", () => {
 
 addNewCardButton.addEventListener("click", () => {
   addFormValidator.resetValidation();
-  openPopUp(addCardModal);
+  newCard.open();
 });
-// addCardModalCloseButton.addEventListener("click", () => {
-//   closePopUp(addCardModal);
-// });
-
-// old event listener regarding the add card form VVVV This needs to be erased
-// addCardForm.addEventListener("submit", handleAddCardFormSubmit);
-
-// addCardForm.addEventListener("submit", () => {
-//   newCard.setEventListeners();
-// });
-
 //
 /* -------------------------------------------------------------------------- */
 /*                          //Preview modal listeners                         */
@@ -260,21 +163,15 @@ previewImageCloseButton.addEventListener("click", () => {
 const profileCard = new PopupWithForm({
   popupSelector: "#profile-edit-modal",
   handleFormSubmit: (inputValues) => {
-    profileTitle.textContent = inputValues.title;
-    profileDescription.textContent = inputValues.description;
+    userInfo.setUserInfo({
+      name: inputValues.title,
+      job: inputValues.description,
+    });
     profileCard.close();
   },
 });
 
 profileCard.setEventListeners();
-
-profileCard.open();
-profileCard.close();
-
-// profileCard._getInputValues({
-//   name: profileTitle,
-//   job: profileDescription,
-// });
 
 /* -------------------------------------------------------------------------- */
 /*                             newCard instantiate                            */
@@ -286,19 +183,11 @@ const newCard = new PopupWithForm({
     console.log(inputValues);
     const card = renderCard(inputValues);
     sectionRenderer.addItem(card);
-    const name = cardTitleInput.value;
-    const link = cardUrlInput.value;
-    closePopUp(addCardModal);
+    // const name = cardTitleInput.value;
+    // const link = cardUrlInput.value;
+    newCard.close();
     addCardForm.reset();
   },
 });
 
 newCard.setEventListeners();
-
-/* -------------------------------------------------------------------------- */
-/*                                    TASKS                                   */
-/* -------------------------------------------------------------------------- */
-// need to fix the stuff within the right files
-// index.js
-// UserInfo.js
-// PopupWithForm.js
