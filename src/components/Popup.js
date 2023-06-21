@@ -8,7 +8,6 @@ class Popup {
 
   open() {
     this._popupElement.classList.add("modal__opened");
-    // this._handleEscClose();
     document.addEventListener("keydown", this._handleEscClose);
   }
 
@@ -20,6 +19,7 @@ class Popup {
 
   _handleEscClose(evt) {
     if (evt.key === "Escape") {
+      console.log(evt.key);
       // search for an opened modal
       const openedModal = document.querySelector(".modal__opened");
       // close it

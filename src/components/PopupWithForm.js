@@ -12,20 +12,25 @@ class PopupWithForm extends Popup {
     this.popupForm.reset();
   }
 
-  open() {
-    super.open();
-  }
-
-  //testing out code to see if this is right VVVV
-
-  _getInputValues({ name, job }) {
-    (this._name.input = name.input), (this._job.input = job.input);
+  _getInputValues() {
+    this._inputElements = [...this.popupForm.querySelectorAll(".modal__input")];
+    const inputValues = {};
+    this._inputElements.forEach((input) => {
+      inputValues[input.name] = input.value;
+    });
+    return inputValues;
   }
 
   setEventListeners() {
     super.setEventListeners();
-    this._handleFormSubmit.addEventListener("submit", () => {});
+    this._handleFormSubmit(this._getInputValues());
   }
 }
 
 export default PopupWithForm;
+
+/* -------------------------------------------------------------------------- */
+/*                                    Notes                                   */
+/* -------------------------------------------------------------------------- */
+
+// we need to add the open towards the edit profile button since its supposed to listen for the click, not the modal.

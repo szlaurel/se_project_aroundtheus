@@ -158,13 +158,9 @@ sectionRenderer.renderItems();
 
 const imagePreviewPopup = new PopupWithImage("#preview-image-modal");
 
-imagePreviewPopup.close();
-
 function handleCardClick(name, link) {
   imagePreviewPopup.open(name, link);
 }
-
-imagePreviewPopup.close();
 
 function renderCard(cardData, wrapper) {
   const card = new Card(cardData, cardSelector, handleCardClick);
@@ -198,6 +194,8 @@ function handleProfileSubmit(evt) {
   closePopUp(profileEditModal);
 }
 
+//took all the code for down below and put it destructuring function
+
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
   const name = cardTitleInput.value;
@@ -205,68 +203,99 @@ function handleAddCardFormSubmit(evt) {
   renderCard({ name, link }, cardsWrap);
   closePopUp(addCardModal);
   addCardForm.reset();
-  // added the toggleButtonState from validation.js
 }
+// added the toggleButtonState from validation.js
 
 /* -------------------------------------------------------------------------- */
 /*                        profile-edit-button OLD CODE                        */
 /* -------------------------------------------------------------------------- */
 
-// profileEditButton.addEventListener("click", () => {
-//   fillProfileForm();
-//   openPopUp(profileEditModal);
+const userInfo = new UserInfo({
+  nameSelector: ".profile__title",
+  jobSelector: ".profile__description",
+});
+
+// userInfo.setUserInfo({
+//   name: profileTitle,
+//   job: profileDescription,
 // });
 
-// profileModalCloseButton.addEventListener("click", () => {
-//   closePopUp(profileEditModal);
-// });
-// profileEditForm.addEventListener("submit", handleProfileSubmit);
+profileEditButton.addEventListener("click", () => {
+  fillProfileForm();
+  openPopUp(profileEditModal);
+});
+
+console.log(profileTitle);
+
+profileModalCloseButton.addEventListener("click", () => {
+  closePopUp(profileEditModal);
+});
+profileEditForm.addEventListener("submit", handleProfileSubmit);
 
 /* -------------------------------------------------------------------------- */
 /*                            add-new-card OLD CODE                           */
 /* -------------------------------------------------------------------------- */
 
-// addNewCardButton.addEventListener("click", () => {
-//   addFormValidator.resetValidation();
-//   openPopUp(addCardModal);
-// });
-// addCardModalCloseButton.addEventListener("click", () => {
-//   closePopUp(addCardModal);
-// });
-// addCardForm.addEventListener("submit", handleAddCardFormSubmit);
+addNewCardButton.addEventListener("click", () => {
+  addFormValidator.resetValidation();
+  openPopUp(addCardModal);
+});
+addCardModalCloseButton.addEventListener("click", () => {
+  closePopUp(addCardModal);
+});
 
+// old event listener regarding the add card form VVVV
+addCardSubmitButton.addEventListener("submit", handleAddCardFormSubmit);
+
+// addCardForm.addEventListener("submit", () => {
+//   newCard.setEventListeners();
+// });
+
+//
 /* -------------------------------------------------------------------------- */
 /*                          //Preview modal listeners                         */
 /* -------------------------------------------------------------------------- */
 previewImageCloseButton.addEventListener("click", () => {
-  // closePopUp(previewImageModal);
   imagePreviewPopup.close();
 });
 
 /* -------------------------------------------------------------------------- */
 /*                           profileCard instantiate                          */
 /* -------------------------------------------------------------------------- */
-const userInfo = new UserInfo({
-  name: profileTitleInput,
-  job: profileDescriptionInput,
-});
 
 const profileCard = new PopupWithForm({
   popupSelector: "#profile-edit-modal",
-  handleFormSubmit: userInfo.setUserInfo({
-    name: profileTitleInput,
-    job: profileDescriptionInput,
-  }),
+  handleFormSubmit: userInfo.getUserInfo(),
 });
 
 profileCard.open();
+profileCard.close();
 
 profileCard._getInputValues({
-  name: profileTitleInput,
-  job: profileDescriptionInput,
+  name: profileTitle,
+  job: profileDescription,
 });
 
 /* -------------------------------------------------------------------------- */
 /*                             newCard instantiate                            */
 /* -------------------------------------------------------------------------- */
-const newCard = new PopupWithForm("#add-card-modal");
+
+// const newCard = new PopupWithForm({
+//   popupSelector: "#add-card-modal",
+//   handleFormSubmit: () => {
+//     // evt.preventDefault();
+//     const name = cardTitleInput.value;
+//     const link = cardUrlInput.value;
+//     renderCard({ name, link }, cardsWrap);
+//     closePopUp(addCardModal);
+//     addCardForm.reset();
+//   },
+// });
+
+/* -------------------------------------------------------------------------- */
+/*                                    TASKS                                   */
+/* -------------------------------------------------------------------------- */
+// need to fix the stuff within the right files
+// index.js
+// UserInfo.js
+// PopupWithForm.js
