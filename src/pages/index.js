@@ -134,9 +134,9 @@ const userInfo = new UserInfo({
 });
 
 profileEditButton.addEventListener("click", () => {
-  const grabInfo = userInfo.getUserInfo();
-  profileTitleInput.value = grabInfo.name;
-  profileDescriptionInput.value = grabInfo.job;
+  const info = userInfo.getUserInfo();
+  profileTitleInput.value = info.name;
+  profileDescriptionInput.value = info.job;
   profileCard.open();
 });
 
