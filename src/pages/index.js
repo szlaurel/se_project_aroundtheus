@@ -1,4 +1,24 @@
 /* -------------------------------------------------------------------------- */
+/*                          temporary fetch requests                          */
+/* -------------------------------------------------------------------------- */
+
+//needs to go in the api class, just running tests to see if it properly works
+
+// fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
+//   method: "GET",
+//   headers: {
+//     authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
+//   },
+// });
+
+// fetch("https://around-api.en.tripleten-services.com/v1/cards", {
+//   method: "GET",
+//   headers: {
+//     authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
+//   },
+// });
+
+/* -------------------------------------------------------------------------- */
 /*                                   Imports                                  */
 /* -------------------------------------------------------------------------- */
 import "./index.css";
@@ -10,6 +30,7 @@ import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import { initialCards } from "../utils/constants.js";
+import Api from "../components/Api.js";
 
 /* -------------------------------------------------------------------------- */
 /*                Variables that belong to profile-edit-modal               */
@@ -183,3 +204,7 @@ const newCard = new PopupWithForm({
 });
 
 newCard.setEventListeners();
+
+/* -------------------------------------------------------------------------- */
+/*                              api fetch request                             */
+/* -------------------------------------------------------------------------- */
