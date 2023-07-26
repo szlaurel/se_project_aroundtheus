@@ -31,6 +31,7 @@ import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import { initialCards } from "../utils/constants.js";
 import Api from "../components/Api.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
 /* -------------------------------------------------------------------------- */
 /*                Variables that belong to profile-edit-modal               */
@@ -52,6 +53,28 @@ const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
 const addNewCardButton = document.querySelector(".profile__add-button");
 const addCardContainer = addCardModal.querySelector("#add-card-container");
 const addCardSubmitButton = addCardModal.querySelector(".modal__button");
+
+/* -------------------------------------------------------------------------- */
+/*              variables that belong to the confirm delete popup             */
+/* -------------------------------------------------------------------------- */
+
+const confirmDeleteModal = document.querySelector("#confirm-delete-modal");
+const confirmDeleteModalContainer =
+  confirmDeleteModal.querySelector(".modal__container");
+const confirmDeleteModalForm = confirmDeleteModal.querySelector(".modal__form");
+const confirmDeleteModalCloseButton =
+  confirmDeleteModal.querySelector(".modal__close");
+const confirmDeleteModalSubmit =
+  confirmDeleteModal.querySelector(".modal__button");
+
+/* -------------------------------------------------------------------------- */
+/*                              card template div                             */
+/* -------------------------------------------------------------------------- */
+
+const cardSelector = "#card-template";
+const cardListSelector = ".cards__list";
+const cardTemplateSelector = document.querySelector("#card-template");
+const deleteButton = cardTemplateSelector.querySelector(".card__delete-button");
 
 /* -------------------------------------------------------------------------- */
 /*             Wrappers aka div wrappers from the html document             */
@@ -115,24 +138,9 @@ const cardTemplate =
 /*                                Card selector                               */
 /* -------------------------------------------------------------------------- */
 
-const cardSelector = "#card-template";
-const cardListSelector = ".cards__list";
-
 /* -------------------------------------------------------------------------- */
 /*                           Function to RenderCard                           */
 /* -------------------------------------------------------------------------- */
-
-const sectionRenderer = new Section(
-  {
-    items: initialCards,
-    renderer: (cardData) => {
-      const card = renderCard(cardData);
-      sectionRenderer.addItem(card);
-    },
-  },
-  cardListSelector
-);
-sectionRenderer.renderItems();
 
 const imagePreviewPopup = new PopupWithImage("#preview-image-modal");
 imagePreviewPopup.setEventListeners();
@@ -146,7 +154,7 @@ function renderCard(cardData, wrapper) {
 }
 
 /* -------------------------------------------------------------------------- */
-/*                        profile-edit-button OLD CODE                        */
+/*                        profile edit button new code                        */
 /* -------------------------------------------------------------------------- */
 
 const userInfo = new UserInfo({
@@ -162,7 +170,7 @@ profileEditButton.addEventListener("click", () => {
 });
 
 /* -------------------------------------------------------------------------- */
-/*                            add-new-card OLD CODE                           */
+/*                            add-new-card new code                           */
 /* -------------------------------------------------------------------------- */
 
 addNewCardButton.addEventListener("click", () => {
@@ -206,5 +214,39 @@ const newCard = new PopupWithForm({
 newCard.setEventListeners();
 
 /* -------------------------------------------------------------------------- */
-/*                              api fetch request                             */
+/*                             confirmation popup                             */
 /* -------------------------------------------------------------------------- */
+
+const popupConfirm = new PopupWithConfirmation("#confirm-delete-modal");
+
+/* -------------------------------------------------------------------------- */
+/*                                  Api calls                                 */
+/* -------------------------------------------------------------------------- */
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
+    "Content-type": "application/json",
+  },
+});
+
+let sectionRenderer;
+
+api
+  .getInitialCards()
+  .then((initialCards) => {
+    sectionRenderer = new Section(
+      {
+        items: initialCards,
+        renderer: (cardData) => {
+          const card = renderCard(cardData);
+          sectionRenderer.addItem(card);
+        },
+      },
+      cardListSelector
+    );
+    sectionRenderer.renderItems();
+  })
+  .catch((err) => {
+    console.error("An error was found", err);
+  });

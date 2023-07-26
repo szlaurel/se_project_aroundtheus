@@ -2,11 +2,12 @@
 // import PopupWithImage from "./PopupWithImage.js";
 
 export class Card {
-  constructor(data, cardSelector, handleCardClick) {
+  constructor(data, cardSelector, handleCardClick, handleDeleteButton) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteButton = handleDeleteButton;
   }
 
   _setEventListeners() {
@@ -15,7 +16,7 @@ export class Card {
       .addEventListener("click", () => this._handleLikeIcon());
     this._element
       .querySelector(".card__delete-button")
-      .addEventListener("click", () => this._handleDeleteCard());
+      .addEventListener("click", () => this._handleDeleteButton);
     this._element
       .querySelector(".card__image")
       .addEventListener("click", () =>

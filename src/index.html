@@ -9,7 +9,7 @@
       name="description"
       content="Place to post pictures and to see national parks around the U.S."
     />
-    <link rel="icon" href="./favicon.ico" />
+    <link rel="icon" href="/favicon.ico" />
     <title>Around the U.S.</title>
   </head>
   <body class="page">
@@ -119,7 +119,24 @@
           </form>
         </div>
       </div>
+      <!-- confirm delete popup -->
+      <div class="modal" id="confirm-delete-modal">
+        <div class="modal__container" id="confirm-delete-modal-container">
+          <button class="modal__close" type="submit"></button>
+          <form class="modal__form" id="confirm-delete-form" novalidate>
+            <h2 class="modal__heading" for="heading-confirm">Are you sure?</h2>
+            <button
+              class="modal__button"
+              for="confirm-submit-delete-button"
+              type="submit"
+            >
+              Yes
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
+    <!-- where all the information goes to make the new card show up when you submit the add card form -->
     <template id="card-template">
       <!-- add a delete button on the card using position absolute and add the trashcan -->
       <li class="card">

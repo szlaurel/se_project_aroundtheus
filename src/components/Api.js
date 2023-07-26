@@ -56,7 +56,7 @@ export default class Api {
   }
 
   editProfileRequest() {
-    fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
+    return fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
       method: "PATCH",
       headers: {
         authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
@@ -70,7 +70,7 @@ export default class Api {
   }
 
   addNewCards() {
-    fetch("https://around-api.en.tripleten-services.com/v1/cards", {
+    return fetch("https://around-api.en.tripleten-services.com/v1/cards", {
       method: "POST",
       headers: {
         authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
@@ -81,6 +81,18 @@ export default class Api {
         link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
       }),
     });
+  }
+
+  confirmDeleteButton() {
+    return fetch(
+      "https://around-api.en.tripleten-services.com/v1/cards/64c08c313ea403001adf7d65",
+      {
+        method: "DELETE",
+        headers: {
+          authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
+        },
+      }
+    );
   }
 }
 
@@ -98,39 +110,12 @@ function cardRenderer(cards) {
 /*                                 Api object                                 */
 /* -------------------------------------------------------------------------- */
 
-const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
-    "Content-type": "application/json",
-  },
-});
-
 /* -------------------------------------------------------------------------- */
 /*                               calling the api                              */
 /* -------------------------------------------------------------------------- */
 
-api
-  .getInitialCards()
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((err) => {
-    console.error("An error was found", err);
-  });
+/* -------------------------------------------------------------------------- */
+/*                                    tasks                                   */
+/* -------------------------------------------------------------------------- */
 
-api
-  .getFetchRequest()
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.error("an error has occurred", err);
-  })
-  .finally(() => {
-    console.log("done");
-  });
-
-api.editProfileRequest();
-
-api.addNewCards();
+// i need to take the information that the api gives me when i call it and plug it into the necessary places in the code to make stuff render and work. Cause now were working with the servers information not my hardcoded info
