@@ -135,10 +135,6 @@ const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 
 /* -------------------------------------------------------------------------- */
-/*                                Card selector                               */
-/* -------------------------------------------------------------------------- */
-
-/* -------------------------------------------------------------------------- */
 /*                           Function to RenderCard                           */
 /* -------------------------------------------------------------------------- */
 
@@ -250,3 +246,21 @@ api
   .catch((err) => {
     console.error("An error was found", err);
   });
+
+api
+  .getFetchRequest()
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.error("an error has occurred", err);
+  })
+  .finally(() => {
+    console.log("done");
+  });
+
+api.editProfileRequest();
+
+api.addNewCards();
+
+api.confirmDeleteButton();
