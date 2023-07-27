@@ -195,25 +195,23 @@ profileCard.setEventListeners();
 /*                             newCard instantiate                            */
 /* -------------------------------------------------------------------------- */
 
-const newCard = new PopupWithForm({
-  popupSelector: "#add-card-modal",
-  handleFormSubmit: (inputValues) => {
-    console.log(inputValues);
-    const card = renderCard(inputValues);
-    sectionRenderer.addItem(card);
-    // const name = cardTitleInput.value;
-    // const link = cardUrlInput.value;
-    newCard.close();
-  },
-});
-
-newCard.setEventListeners();
+// const newCard = new PopupWithForm({
+//   popupSelector: "#add-card-modal",
+//   handleFormSubmit: (inputValues) => {
+//     console.log(inputValues);
+//     const card = renderCard(inputValues);
+//     sectionRenderer.addItem(card);
+//     // const name = cardTitleInput.value;
+//     // const link = cardUrlInput.value;
+//     newCard.close();
+//   },
+// });
 
 /* -------------------------------------------------------------------------- */
 /*                             confirmation popup                             */
 /* -------------------------------------------------------------------------- */
 
-const popupConfirm = new PopupWithConfirmation("#confirm-delete-modal");
+// const popupConfirm = new PopupWithConfirmation("#confirm-delete-modal");
 
 /* -------------------------------------------------------------------------- */
 /*                                  Api calls                                 */
@@ -225,6 +223,10 @@ const api = new Api({
     "Content-type": "application/json",
   },
 });
+
+/* -------------------------------------------------------------------------- */
+/*                   api call for the section card renderer                   */
+/* -------------------------------------------------------------------------- */
 
 let sectionRenderer;
 
@@ -247,6 +249,10 @@ api
     console.error("An error was found", err);
   });
 
+/* -------------------------------------------------------------------------- */
+/*                          regular get fetch request                         */
+/* -------------------------------------------------------------------------- */
+
 api
   .getFetchRequest()
   .then((res) => {
@@ -259,8 +265,99 @@ api
     console.log("done");
   });
 
-api.editProfileRequest();
+/* -------------------------------------------------------------------------- */
+/*                               profile request                              */
+/* -------------------------------------------------------------------------- */
 
-api.addNewCards();
+//where the "then" is thats where i need to plug in the respective code in order to see the information from the server on the website.
 
-api.confirmDeleteButton();
+api
+  .editProfileRequest()
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.error("an error has occurred", err);
+  })
+  .finally(() => {
+    console.log("done");
+  });
+
+/* -------------------------------------------------------------------------- */
+/*                                card requests                               */
+/* -------------------------------------------------------------------------- */
+
+let newCard;
+
+api
+  .addNewCards()
+  .then((popupSelector) => {
+    newCard = new PopupWithForm({
+      popupSelector: "#add-card-modal",
+      handleFormSubmit: (inputValues) => {
+        console.log(inputValues);
+        const card = renderCard(inputValues);
+        sectionRenderer.addItem(card);
+        newCard.close();
+        newCard.setEventListeners();
+      },
+    });
+  })
+  .catch((err) => {
+    console.error("an error has occurred", err);
+  })
+  .finally(() => {
+    console.log("done");
+  });
+
+api
+  .confirmDeleteButton()
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.error("an error has occurred", err);
+  })
+  .finally(() => {
+    console.log("done");
+  });
+
+api
+  .deleteButtonRequest()
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.error("an error has occurred", err);
+  })
+  .finally(() => {
+    console.log("done");
+  });
+
+api
+  .likeButtonRequest()
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.error("an error has occurred", err);
+  })
+  .finally(() => {
+    console.log("done");
+  });
+
+/* -------------------------------------------------------------------------- */
+/*                            profile card request                            */
+/* -------------------------------------------------------------------------- */
+
+api
+  .updateProfilePictureRequest()
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.error("an error has occurred", err);
+  })
+  .finally(() => {
+    console.log("done");
+  });

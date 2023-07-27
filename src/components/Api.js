@@ -94,6 +94,44 @@ export default class Api {
       }
     );
   }
+
+  //cardId in the like button request and the delete button request need to be updated with the cards id that comes from the server, so in order to do that we need so the request the id that comes from the server and imbed it into the requests when the action happens
+
+  likeButtonRequest() {
+    return fetch(
+      "https://around-api.en.tripleten-services.com/v1/cards/cardId/likes",
+      {
+        method: "PUT",
+        headers: {
+          authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
+        },
+      }
+    );
+  }
+
+  deleteButtonRequest() {
+    return fetch(
+      "https://around-api.en.tripleten-services.com/v1/cards/cardId/",
+      {
+        method: "DELETE",
+        headers: {
+          authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
+        },
+      }
+    );
+  }
+
+  updateProfilePictureRequest() {
+    return fetch(
+      "https://around-api.en.tripleten-services.com/v1/cards/cardId/avatar",
+      {
+        method: "PATCH",
+        headers: {
+          authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
+        },
+      }
+    );
+  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -102,9 +140,12 @@ export default class Api {
 
 // still need to fix this code and see how this works
 
-function cardRenderer(cards) {
-  promise.all(cards);
-}
+// function cardRenderer(cards) {
+//   promise.all(cards);
+// }
+
+//link to read up on everything about promise.all
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
 
 /* -------------------------------------------------------------------------- */
 /*                                 Api object                                 */
@@ -117,5 +158,7 @@ function cardRenderer(cards) {
 /* -------------------------------------------------------------------------- */
 /*                                    tasks                                   */
 /* -------------------------------------------------------------------------- */
+
+//very important, i need to plug in the editprofileapi into the profilecard instantiate i think, the data from that needs to come from the server and be plugged into their respective places.
 
 // i need to take the information that the api gives me when i call it and plug it into the necessary places in the code to make stuff render and work. Cause now were working with the servers information not my hardcoded info
