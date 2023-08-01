@@ -8,8 +8,10 @@ import Popup from "./Popup.js";
 /* -------------------------------------------------------------------------- */
 
 export default class PopupWithConfirmation extends Popup {
-  constructor({ popupSelector }) {
+  constructor({ popupSelector, submitButton }) {
     super({ popupSelector });
+    this._popupSelector = document.querySelector(popupSelector);
+    this._submitButton = submitButton;
   }
 
   open() {
@@ -26,8 +28,11 @@ export default class PopupWithConfirmation extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._popupElement.addEventListener("click", () => {
-      console.log("click");
+    this._confirmButton = this._popupSelector.querySelector(".modal__button");
+    this._confirmButton.addEventListener("click", (evt) => {
+      evt.preventDefault();
+      console.log(evt);
+      console.log(this._submitButton);
     });
   }
 }

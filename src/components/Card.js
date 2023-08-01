@@ -16,7 +16,7 @@ export class Card {
       .addEventListener("click", () => this._handleLikeIcon());
     this._element
       .querySelector(".card__delete-button")
-      .addEventListener("click", () => this._handleDeleteButton);
+      .addEventListener("click", () => this._handleDeleteButton());
     this._element
       .querySelector(".card__image")
       .addEventListener("click", () =>

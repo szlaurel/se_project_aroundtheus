@@ -25,28 +25,28 @@
 // I need to put everything regarding the api within the Api class down below.
 // this means putting stuff that has to deal with the cards, the profile, and the new user info and so on and so forth.
 
-/* -------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
 /*                           class regarding the api                          */
 /* -------------------------------------------------------------------------- */
 
 export default class Api {
-  constructor(options) {}
+  constructor({ baseUrl, headers, cardID }) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
+    this._cardID = cardID;
+  }
 
   getFetchRequest() {
-    return fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
-      headers: {
-        authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
-      },
+      headers: this._headers,
     });
   }
 
   getInitialCards() {
-    return fetch("https://around-api.en.tripleten-services.com/v1/cards", {
+    return fetch(`${this._baseUrl}/cards`, {
       method: "GET",
-      headers: {
-        authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
-      },
+      headers: this._headers,
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -56,81 +56,60 @@ export default class Api {
   }
 
   editProfileRequest() {
-    return fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      headers: {
-        authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
       body: JSON.stringify({
-        name: "Marie Skłodowska Curie",
-        about: "Physicist and Chemist",
+        name: "Jacques Cousteau",
+        about: "Explorer",
       }),
     });
   }
 
   addNewCards() {
-    return fetch("https://around-api.en.tripleten-services.com/v1/cards", {
+    return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
-      headers: {
-        authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
       body: JSON.stringify({
-        name: "Bald Mountains",
-        link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
+        name: "dumb",
+        link: "https://images.unsplash.com/photo-1641927676953-f12cc1b1a59a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=928&q=80",
       }),
     });
   }
 
   confirmDeleteButton() {
-    return fetch(
-      "https://around-api.en.tripleten-services.com/v1/cards/64c08c313ea403001adf7d65",
-      {
-        method: "DELETE",
-        headers: {
-          authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
-        },
-      }
-    );
+    return fetch(`"${this._baseUrl}/cards/${cardID}"`, {
+      method: "DELETE",
+      headers: this._headers,
+    });
   }
 
   //cardId in the like button request and the delete button request need to be updated with the cards id that comes from the server, so in order to do that we need so the request the id that comes from the server and imbed it into the requests when the action happens
 
+  /**
+   *
+   * @param {String} cardId needs to be replaced with the id that comes from the cards
+   */
+
   likeButtonRequest() {
-    return fetch(
-      "https://around-api.en.tripleten-services.com/v1/cards/cardId/likes",
-      {
-        method: "PUT",
-        headers: {
-          authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
-        },
-      }
-    );
+    return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    });
   }
 
-  deleteButtonRequest() {
-    return fetch(
-      "https://around-api.en.tripleten-services.com/v1/cards/cardId/",
-      {
-        method: "DELETE",
-        headers: {
-          authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
-        },
-      }
-    );
+  removeLikeButtonRequest() {
+    return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    });
   }
 
   updateProfilePictureRequest() {
-    return fetch(
-      "https://around-api.en.tripleten-services.com/v1/cards/cardId/avatar",
-      {
-        method: "PATCH",
-        headers: {
-          authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
-        },
-      }
-    );
+    return fetch(`${this._baseUrl}/cards/${cardID}/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+    });
   }
 }
 

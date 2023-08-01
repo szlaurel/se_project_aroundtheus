@@ -140,12 +140,20 @@ const cardTemplate =
 
 const imagePreviewPopup = new PopupWithImage("#preview-image-modal");
 imagePreviewPopup.setEventListeners();
+
 function handleCardClick(name, link) {
   imagePreviewPopup.open(name, link);
 }
 
+//the modal is supposed to popup with the confirmation having the
+
 function renderCard(cardData, wrapper) {
-  const card = new Card(cardData, cardSelector, handleCardClick);
+  const card = new Card(
+    cardData,
+    cardSelector,
+    handleCardClick,
+    handleDeleteButton
+  );
   return card.getView();
 }
 
@@ -195,23 +203,44 @@ profileCard.setEventListeners();
 /*                             newCard instantiate                            */
 /* -------------------------------------------------------------------------- */
 
-// const newCard = new PopupWithForm({
-//   popupSelector: "#add-card-modal",
-//   handleFormSubmit: (inputValues) => {
-//     console.log(inputValues);
-//     const card = renderCard(inputValues);
-//     sectionRenderer.addItem(card);
-//     // const name = cardTitleInput.value;
-//     // const link = cardUrlInput.value;
-//     newCard.close();
-//   },
-// });
+const newCard = new PopupWithForm({
+  popupSelector: "#add-card-modal",
+  handleFormSubmit: (inputValues) => {
+    console.log(inputValues);
+    const card = renderCard(inputValues);
+    sectionRenderer.addItem(card);
+    // const name = cardTitleInput.value;
+    // const link = cardUrlInput.value;
+    newCard.close();
+  },
+});
 
 /* -------------------------------------------------------------------------- */
 /*                             confirmation popup                             */
 /* -------------------------------------------------------------------------- */
 
-// const popupConfirm = new PopupWithConfirmation("#confirm-delete-modal");
+const popupConfirm = new PopupWithConfirmation({
+  popupSelector: "#confirm-delete-modal",
+  submitButton: (api) => {
+    api
+      .confirmDeleteButton()
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error("an error has occurred", err);
+      })
+      .finally(() => {
+        console.log("done");
+      });
+  },
+});
+
+function handleDeleteButton() {
+  popupConfirm.open();
+}
+
+popupConfirm.setEventListeners();
 
 /* -------------------------------------------------------------------------- */
 /*                                  Api calls                                 */
@@ -222,6 +251,7 @@ const api = new Api({
     authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
     "Content-type": "application/json",
   },
+  // cardID:
 });
 
 /* -------------------------------------------------------------------------- */
@@ -244,7 +274,10 @@ api
       cardListSelector
     );
     sectionRenderer.renderItems();
+    const cards = initialCards;
+    JSON.stringify(cards);
   })
+  //need to figure out a way to take the ids and plug them into the url. Do i use an event listener of every card and everytime i click a specific one i get the id for it i do i just listen for every time?
   .catch((err) => {
     console.error("An error was found", err);
   });
@@ -271,37 +304,26 @@ api
 
 //where the "then" is thats where i need to plug in the respective code in order to see the information from the server on the website.
 
-api
-  .editProfileRequest()
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.error("an error has occurred", err);
-  })
-  .finally(() => {
-    console.log("done");
-  });
+// api
+//   .editProfileRequest()
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.error("an error has occurred", err);
+//   })
+//   .finally(() => {
+//     console.log("done");
+//   });
 
 /* -------------------------------------------------------------------------- */
 /*                                card requests                               */
 /* -------------------------------------------------------------------------- */
 
-let newCard;
-
 api
   .addNewCards()
-  .then((popupSelector) => {
-    newCard = new PopupWithForm({
-      popupSelector: "#add-card-modal",
-      handleFormSubmit: (inputValues) => {
-        console.log(inputValues);
-        const card = renderCard(inputValues);
-        sectionRenderer.addItem(card);
-        newCard.close();
-        newCard.setEventListeners();
-      },
-    });
+  .then((response) => {
+    console.log(response);
   })
   .catch((err) => {
     console.error("an error has occurred", err);
@@ -310,54 +332,42 @@ api
     console.log("done");
   });
 
-api
-  .confirmDeleteButton()
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.error("an error has occurred", err);
-  })
-  .finally(() => {
-    console.log("done");
-  });
+// api
+//   .likeButtonRequest()
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.error("an error has occurred", err);
+//   })
+//   .finally(() => {
+//     console.log("done");
+//   });
 
-api
-  .deleteButtonRequest()
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.error("an error has occurred", err);
-  })
-  .finally(() => {
-    console.log("done");
-  });
-
-api
-  .likeButtonRequest()
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.error("an error has occurred", err);
-  })
-  .finally(() => {
-    console.log("done");
-  });
+// api
+//   .removeLikeButtonRequest()
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.error("an error has occurred", err);
+//   })
+//   .finally(() => {
+//     console.log("done");
+//   });
 
 /* -------------------------------------------------------------------------- */
 /*                            profile card request                            */
 /* -------------------------------------------------------------------------- */
 
-api
-  .updateProfilePictureRequest()
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.error("an error has occurred", err);
-  })
-  .finally(() => {
-    console.log("done");
-  });
+// api
+//   .updateProfilePictureRequest()
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.error("an error has occurred", err);
+//   })
+//   .finally(() => {
+//     console.log("done");
+//   });
