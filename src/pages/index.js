@@ -203,17 +203,32 @@ profileCard.setEventListeners();
 /*                             newCard instantiate                            */
 /* -------------------------------------------------------------------------- */
 
+//plugged the code for the api into the handleformsubmit to be able to show any card that gets
+
 const newCard = new PopupWithForm({
   popupSelector: "#add-card-modal",
   handleFormSubmit: (inputValues) => {
-    console.log(inputValues);
-    const card = renderCard(inputValues);
-    sectionRenderer.addItem(card);
-    // const name = cardTitleInput.value;
-    // const link = cardUrlInput.value;
-    newCard.close();
+    const name = inputValues.name;
+    const link = inputValues.link;
+    api
+      .addNewCards({ name, link })
+      .then((res) => {
+        console.log(res);
+        console.log(inputValues);
+        const card = renderCard(inputValues);
+        sectionRenderer.addItem(card);
+        newCard.close();
+      })
+      .catch((err) => {
+        console.error("an error has occurred", err);
+      })
+      .finally(() => {
+        console.log("done");
+      });
   },
 });
+
+newCard.setEventListeners();
 
 /* -------------------------------------------------------------------------- */
 /*                             confirmation popup                             */
@@ -275,7 +290,6 @@ api
     );
     sectionRenderer.renderItems();
     const cards = initialCards;
-    JSON.stringify(cards);
   })
   //need to figure out a way to take the ids and plug them into the url. Do i use an event listener of every card and everytime i click a specific one i get the id for it i do i just listen for every time?
   .catch((err) => {
@@ -283,13 +297,13 @@ api
   });
 
 /* -------------------------------------------------------------------------- */
-/*                          regular get fetch request                         */
+/*                                fetch request                               */
 /* -------------------------------------------------------------------------- */
 
 api
   .getFetchRequest()
   .then((res) => {
-    console.log(res);
+    console.log(res.json);
   })
   .catch((err) => {
     console.error("an error has occurred", err);
@@ -304,26 +318,10 @@ api
 
 //where the "then" is thats where i need to plug in the respective code in order to see the information from the server on the website.
 
-// api
-//   .editProfileRequest()
-//   .then((res) => {
-//     console.log(res);
-//   })
-//   .catch((err) => {
-//     console.error("an error has occurred", err);
-//   })
-//   .finally(() => {
-//     console.log("done");
-//   });
-
-/* -------------------------------------------------------------------------- */
-/*                                card requests                               */
-/* -------------------------------------------------------------------------- */
-
 api
-  .addNewCards()
-  .then((response) => {
-    console.log(response);
+  .editProfileRequest()
+  .then((res) => {
+    console.log(res);
   })
   .catch((err) => {
     console.error("an error has occurred", err);
@@ -331,6 +329,10 @@ api
   .finally(() => {
     console.log("done");
   });
+
+/* -------------------------------------------------------------------------- */
+/*                                card requests                               */
+/* -------------------------------------------------------------------------- */
 
 // api
 //   .likeButtonRequest()

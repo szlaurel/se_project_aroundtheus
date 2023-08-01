@@ -63,17 +63,29 @@ export default class Api {
         name: "Jacques Cousteau",
         about: "Explorer",
       }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return new Promise.reject(`Error : ${res.status}`);
     });
   }
 
-  addNewCards() {
+  //need to find a way to plug the data that i get from the add card form and push it into the addnewcards api call
+
+  addNewCards({ name, link }) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name: "dumb",
-        link: "https://images.unsplash.com/photo-1641927676953-f12cc1b1a59a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=928&q=80",
+        name: name,
+        link: link,
       }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return new Promise.reject(`Error : ${res.status}`);
     });
   }
 
@@ -111,6 +123,14 @@ export default class Api {
       headers: this._headers,
     });
   }
+
+  async cardRenderer() {
+    await promise.all([
+      this.getInitialCards,
+      this.editProfileRequest,
+      this.updateProfilePictureRequest,
+    ]);
+  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -119,8 +139,11 @@ export default class Api {
 
 // still need to fix this code and see how this works
 
-// function cardRenderer(cards) {
-//   promise.all(cards);
+// async function cardRenderer(cards) {
+//   await promise.all([
+//     getInitialCards()
+
+//   ]);
 // }
 
 //link to read up on everything about promise.all
