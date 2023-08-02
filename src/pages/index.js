@@ -166,6 +166,8 @@ const userInfo = new UserInfo({
   jobSelector: ".profile__description",
 });
 
+// the get fetch request api call has to go here i think.
+
 profileEditButton.addEventListener("click", () => {
   const info = userInfo.getUserInfo();
   profileTitleInput.value = info.name;
@@ -186,14 +188,31 @@ addNewCardButton.addEventListener("click", () => {
 /*                           profileCard instantiate                          */
 /* -------------------------------------------------------------------------- */
 
+// the editProfileRequest api has to go here
+
 const profileCard = new PopupWithForm({
   popupSelector: "#profile-edit-modal",
   handleFormSubmit: (inputValues) => {
-    userInfo.setUserInfo({
-      name: inputValues.title,
-      job: inputValues.description,
-    });
-    profileCard.close();
+    console.log(inputValues);
+    const title = inputValues.title;
+    const description = inputValues.description;
+    console.log(title, description);
+    api
+      .editProfileRequest({ title, description })
+      .then((inputValues) => {
+        console.log(inputValues);
+        userInfo.setUserInfo({
+          name: title,
+          job: description,
+        });
+        profileCard.close();
+      })
+      .catch((err) => {
+        console.error("an error has occurred", err);
+      })
+      .finally(() => {
+        console.log("done");
+      });
   },
 });
 
@@ -209,9 +228,9 @@ const newCard = new PopupWithForm({
   popupSelector: "#add-card-modal",
   handleFormSubmit: (inputValues) => {
     const name = inputValues.name;
-    const link = inputValues.link;
+    const about = inputValues.about;
     api
-      .addNewCards({ name, link })
+      .addNewCards({ name, about })
       .then((res) => {
         console.log(res);
         console.log(inputValues);
@@ -318,17 +337,17 @@ api
 
 //where the "then" is thats where i need to plug in the respective code in order to see the information from the server on the website.
 
-api
-  .editProfileRequest()
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.error("an error has occurred", err);
-  })
-  .finally(() => {
-    console.log("done");
-  });
+// api
+//   .editProfileRequest()
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.error("an error has occurred", err);
+//   })
+//   .finally(() => {
+//     console.log("done");
+//   });
 
 /* -------------------------------------------------------------------------- */
 /*                                card requests                               */

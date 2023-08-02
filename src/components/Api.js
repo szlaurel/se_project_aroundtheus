@@ -55,13 +55,13 @@ export default class Api {
     });
   }
 
-  editProfileRequest() {
+  editProfileRequest({ title, description }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name: "Jacques Cousteau",
-        about: "Explorer",
+        name: title,
+        about: description,
       }),
     }).then((res) => {
       if (res.ok) {
