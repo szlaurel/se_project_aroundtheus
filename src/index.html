@@ -119,6 +119,30 @@
           </form>
         </div>
       </div>
+      <!-- change avatar popup-->
+      <div class="modal" id="change-avatar-modal">
+        <div class="modal__container" id="change-avatar-container">
+          <button class="modal__close"></button>
+          <form class="modal__form" id="change-avatar-form" novalidate>
+            <h2 class="modal__heading" for="heading-avatar">
+              Change profile picture
+            </h2>
+            <input
+              type="url"
+              name="link"
+              id="url-input"
+              placeholder="Link"
+              class="modal__input modal__input_type_url"
+              required
+              for="avatar-image-input"
+            />
+            <span class="modal__error" id="url-input-error"></span>
+            <button class="modal__button" type="submit" for="submit-avatar">
+              Save
+            </button>
+          </form>
+        </div>
+      </div>
       <!-- confirm delete popup -->
       <div class="modal" id="confirm-delete-modal">
         <div class="modal__container" id="confirm-delete-modal-container">

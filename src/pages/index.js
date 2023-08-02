@@ -1,22 +1,14 @@
 /* -------------------------------------------------------------------------- */
-/*                          temporary fetch requests                          */
+/*                                  Api calls                                 */
 /* -------------------------------------------------------------------------- */
-
-//needs to go in the api class, just running tests to see if it properly works
-
-// fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
-//   method: "GET",
-//   headers: {
-//     authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
-//   },
-// });
-
-// fetch("https://around-api.en.tripleten-services.com/v1/cards", {
-//   method: "GET",
-//   headers: {
-//     authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
-//   },
-// });
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
+    "Content-type": "application/json",
+  },
+  // cardID:
+});
 
 /* -------------------------------------------------------------------------- */
 /*                                   Imports                                  */
@@ -66,6 +58,21 @@ const confirmDeleteModalCloseButton =
   confirmDeleteModal.querySelector(".modal__close");
 const confirmDeleteModalSubmit =
   confirmDeleteModal.querySelector(".modal__button");
+
+/* -------------------------------------------------------------------------- */
+/*              variables that belong to the change avatar popup              */
+/* -------------------------------------------------------------------------- */
+const changeAvatarModal = document.querySelector("#change-avatar-modal");
+const changeAvatarModalContainer = changeAvatarModal.querySelector(
+  "#change-avatar-container"
+);
+const changeAvatarModalForm = changeAvatarModal.querySelector(
+  "#change-avatar-form"
+);
+const changeAvatarModalCloseButton =
+  changeAvatarModal.querySelector(".modal__close");
+const chagneAvatarModalSubmitButton =
+  changeAvatarModal.querySelector(".modal__button");
 
 /* -------------------------------------------------------------------------- */
 /*                              card template div                             */
@@ -152,7 +159,8 @@ function renderCard(cardData, wrapper) {
     cardData,
     cardSelector,
     handleCardClick,
-    handleDeleteButton
+    handleDeleteButton,
+    handleLikeButton
   );
   return card.getView();
 }
@@ -160,13 +168,12 @@ function renderCard(cardData, wrapper) {
 /* -------------------------------------------------------------------------- */
 /*                        profile edit button new code                        */
 /* -------------------------------------------------------------------------- */
-
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
   jobSelector: ".profile__description",
 });
 
-// the get fetch request api call has to go here i think.
+// the userProfileInfo api call has to go here i think.
 
 profileEditButton.addEventListener("click", () => {
   const info = userInfo.getUserInfo();
@@ -255,11 +262,14 @@ newCard.setEventListeners();
 
 const popupConfirm = new PopupWithConfirmation({
   popupSelector: "#confirm-delete-modal",
-  submitButton: (api) => {
+});
+
+function handleDeleteButton(card) {
+  popupConfirm.setSubmitAction(() => {
     api
-      .confirmDeleteButton()
-      .then((res) => {
-        console.log(res);
+      .confirmDeleteButton(card._id)
+      .then(() => {
+        card.handleDeleteCard();
       })
       .catch((err) => {
         console.error("an error has occurred", err);
@@ -267,26 +277,11 @@ const popupConfirm = new PopupWithConfirmation({
       .finally(() => {
         console.log("done");
       });
-  },
-});
-
-function handleDeleteButton() {
+  });
   popupConfirm.open();
 }
 
 popupConfirm.setEventListeners();
-
-/* -------------------------------------------------------------------------- */
-/*                                  Api calls                                 */
-/* -------------------------------------------------------------------------- */
-const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
-    "Content-type": "application/json",
-  },
-  // cardID:
-});
 
 /* -------------------------------------------------------------------------- */
 /*                   api call for the section card renderer                   */
@@ -318,11 +313,16 @@ api
 /* -------------------------------------------------------------------------- */
 /*                                fetch request                               */
 /* -------------------------------------------------------------------------- */
-
 api
-  .getFetchRequest()
-  .then((res) => {
-    console.log(res.json);
+  .userProfileInfo()
+  .then((res) => res.json())
+  .then((info) => {
+    console.log(info);
+    userInfo.setUserInfo({
+      name: info.name,
+      job: info.about,
+    });
+    console.log(userInfo);
   })
   .catch((err) => {
     console.error("an error has occurred", err);
@@ -332,38 +332,48 @@ api
   });
 
 /* -------------------------------------------------------------------------- */
-/*                               profile request                              */
-/* -------------------------------------------------------------------------- */
-
-//where the "then" is thats where i need to plug in the respective code in order to see the information from the server on the website.
-
-// api
-//   .editProfileRequest()
-//   .then((res) => {
-//     console.log(res);
-//   })
-//   .catch((err) => {
-//     console.error("an error has occurred", err);
-//   })
-//   .finally(() => {
-//     console.log("done");
-//   });
-
-/* -------------------------------------------------------------------------- */
 /*                                card requests                               */
 /* -------------------------------------------------------------------------- */
 
+function handleLikeButton(card) {
+  if (card._isLiked) {
+    api
+      .removeLikeButtonRequest(card._id)
+      .then((res) => {
+        card.updateLikes(res.isLiked);
+      })
+      .catch((err) => {
+        console.error("an error has occurred", err);
+      })
+      .finally(() => {
+        console.log("done");
+      });
+  } else {
+    api
+      .likeButtonRequest(card._id)
+      .then((res) => {
+        card.updateLikes(res.isLiked);
+      })
+      .catch((err) => {
+        console.error("an error has occurred", err);
+      })
+      .finally(() => {
+        console.log("done");
+      });
+  }
+}
+
 // api
-//   .likeButtonRequest()
-//   .then((res) => {
-//     console.log(res);
-//   })
-//   .catch((err) => {
-//     console.error("an error has occurred", err);
-//   })
-//   .finally(() => {
-//     console.log("done");
-//   });
+// .likeButtonRequest()
+// .then((res) => {
+//   console.log(res);
+// })
+// .catch((err) => {
+//   console.error("an error has occurred", err);
+// })
+// .finally(() => {
+//   console.log("done");
+// });
 
 // api
 //   .removeLikeButtonRequest()

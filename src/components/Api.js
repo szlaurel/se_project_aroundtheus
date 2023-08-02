@@ -36,7 +36,7 @@ export default class Api {
     this._cardID = cardID;
   }
 
-  getFetchRequest() {
+  userProfileInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: this._headers,
@@ -89,8 +89,8 @@ export default class Api {
     });
   }
 
-  confirmDeleteButton() {
-    return fetch(`"${this._baseUrl}/cards/${cardID}"`, {
+  confirmDeleteButton(cardID) {
+    return fetch(`${this._baseUrl}/cards/${cardID}`, {
       method: "DELETE",
       headers: this._headers,
     });
@@ -103,24 +103,39 @@ export default class Api {
    * @param {String} cardId needs to be replaced with the id that comes from the cards
    */
 
-  likeButtonRequest() {
+  likeButtonRequest(cardID) {
     return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
       method: "PUT",
       headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return new Promise.reject(`Error : ${res.status}`);
     });
   }
 
-  removeLikeButtonRequest() {
+  removeLikeButtonRequest(cardID) {
     return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
       method: "DELETE",
       headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return new Promise.reject(`Error : ${res.status}`);
     });
   }
 
   updateProfilePictureRequest() {
-    return fetch(`${this._baseUrl}/cards/${cardID}/avatar`, {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return new Promise.reject(`Error : ${res.status}`);
     });
   }
 
