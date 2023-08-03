@@ -1,11 +1,15 @@
 import Popup from "./Popup.js";
 
 class PopupWithForm extends Popup {
-  constructor({ popupSelector, handleFormSubmit, handleImageSubmit }) {
+  constructor({ popupSelector, handleFormSubmit }) {
     super({ popupSelector });
     this.popupForm = this._popupElement.querySelector(".modal__form");
     this._handleFormSubmit = handleFormSubmit;
-    this._handleImageSubmit = handleImageSubmit;
+  }
+
+  open() {
+    super.open();
+    this.revertSaveButtonListener();
   }
 
   close() {
@@ -23,10 +27,21 @@ class PopupWithForm extends Popup {
   }
   //this where the code for changing the save button to say "Saving..." goes
 
+  saveInfoListener() {
+    this._submitButton = this.popupForm.querySelector(".modal__button");
+    this._submitButton.textContent = "Saving...";
+  }
+
+  revertSaveButtonListener() {
+    this._submitButton = this.popupForm.querySelector(".modal__button");
+    this._submitButton.textContent = "Save";
+  }
+
   setEventListeners() {
     super.setEventListeners();
     this.popupForm.addEventListener("submit", () => {
-      this._handleFormSubmit(this._getInputValues());
+      this.saveInfoListener();
+      setTimeout(this._handleFormSubmit(this._getInputValues()), 5000);
     });
   }
 
@@ -34,6 +49,7 @@ class PopupWithForm extends Popup {
     this.submitPicture = document.querySelector(".profile__image");
     this.popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
+      this.saveInfoListener();
       this._handleFormSubmit(this._getInputValues());
     });
   }
