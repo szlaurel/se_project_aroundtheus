@@ -32,7 +32,8 @@ class PopupWithForm extends Popup {
     this.submitPicture = document.querySelector(".profile__image");
     this.popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this.submitPicture.src = this._handleFormSubmit(this._getInputValues());
+      this._handleFormSubmit(this._getInputValues());
+      this._getInputValues();
     });
   }
 }

@@ -29,6 +29,7 @@ import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 /*                variables that belong to profile image change               */
 /* -------------------------------------------------------------------------- */
 const profileImageContainer = document.querySelector("#profile-avatar-edit");
+const profileImage = profileImageContainer.querySelector("#profile-image");
 
 /* -------------------------------------------------------------------------- */
 /*                Variables that belong to profile-edit-modal               */
@@ -378,13 +379,14 @@ function handleLikeButton(card) {
 const updateProfilePicture = new PopupWithForm({
   popupSelector: "#change-avatar-modal",
   handleFormSubmit: (inputValues) => {
-    const linkInput = inputValues;
+    const linkInput = inputValues.link;
     console.log(linkInput);
     api
-      .updateProfilePictureRequest({ linkInput })
+      .updateProfilePictureRequest({ linkInput: linkInput })
       .then((res) => {
         console.log(res);
-        console.log(linkInput);
+        profileImage.src = linkInput;
+        // this is where the pushing of the link goes through
       })
       .catch((err) => {
         console.error("an error has occurred", err);
