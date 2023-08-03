@@ -257,6 +257,7 @@ const newCard = new PopupWithForm({
       .then((res) => {
         console.log(res);
         console.log(inputValues);
+        // "res" in the renderCard parameter takes all the data from the .then("res") and pushes all of the necessary info that the server has to the cards
         const card = renderCard(res);
         sectionRenderer.addItem(card);
         newCard.close();
