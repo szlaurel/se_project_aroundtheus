@@ -141,6 +141,13 @@ const editFormValidator = new FormValidator(
 
 const addFormValidator = new FormValidator(validationSettings, addCardForm);
 
+const avatarImageFormValidator = new FormValidator(
+  validationSettings,
+  changeAvatarModalForm
+);
+
+avatarImageFormValidator.enableValidation();
+
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
@@ -250,7 +257,7 @@ const newCard = new PopupWithForm({
       .then((res) => {
         console.log(res);
         console.log(inputValues);
-        const card = renderCard(inputValues);
+        const card = renderCard(res);
         sectionRenderer.addItem(card);
         newCard.close();
       })

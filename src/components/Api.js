@@ -143,10 +143,10 @@ export default class Api {
   }
 
   async cardRenderer() {
-    await promise.all([
-      this.getInitialCards,
-      this.editProfileRequest,
-      this.updateProfilePictureRequest,
+    await Promise.all([
+      this.getInitialCards(),
+      this.editProfileRequest(),
+      this.updateProfilePictureRequest(),
     ]);
   }
 }
