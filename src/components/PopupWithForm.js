@@ -27,6 +27,14 @@ class PopupWithForm extends Popup {
       this._handleFormSubmit(this._getInputValues());
     });
   }
+
+  updateProfileImageEventListeners() {
+    this.submitPicture = document.querySelector(".profile__image");
+    this.popupForm.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this.submitPicture.src = this._handleFormSubmit(this._getInputValues());
+    });
+  }
 }
 
 export default PopupWithForm;
@@ -36,3 +44,5 @@ export default PopupWithForm;
 /* -------------------------------------------------------------------------- */
 
 // we need to add the open towards the edit profile button since its supposed to listen for the click, not the modal.
+
+// need to add the code functionality for the update profile card here

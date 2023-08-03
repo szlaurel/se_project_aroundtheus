@@ -26,6 +26,11 @@ import Api from "../components/Api.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
 /* -------------------------------------------------------------------------- */
+/*                variables that belong to profile image change               */
+/* -------------------------------------------------------------------------- */
+const profileImageContainer = document.querySelector("#profile-avatar-edit");
+
+/* -------------------------------------------------------------------------- */
 /*                Variables that belong to profile-edit-modal               */
 /* -------------------------------------------------------------------------- */
 const profileEditModal = document.querySelector("#profile-edit-modal");
@@ -231,13 +236,16 @@ profileCard.setEventListeners();
 
 //plugged the code for the api into the handleformsubmit to be able to show any card that gets
 
+//template for the code update profile picture
+//essentially the code to update the avatar is the same code as the newcard
+
 const newCard = new PopupWithForm({
   popupSelector: "#add-card-modal",
   handleFormSubmit: (inputValues) => {
     const name = inputValues.name;
-    const about = inputValues.about;
+    const link = inputValues.link;
     api
-      .addNewCards({ name, about })
+      .addNewCards({ name, link })
       .then((res) => {
         console.log(res);
         console.log(inputValues);
@@ -363,42 +371,34 @@ function handleLikeButton(card) {
   }
 }
 
-// api
-// .likeButtonRequest()
-// .then((res) => {
-//   console.log(res);
-// })
-// .catch((err) => {
-//   console.error("an error has occurred", err);
-// })
-// .finally(() => {
-//   console.log("done");
-// });
-
-// api
-//   .removeLikeButtonRequest()
-//   .then((res) => {
-//     console.log(res);
-//   })
-//   .catch((err) => {
-//     console.error("an error has occurred", err);
-//   })
-//   .finally(() => {
-//     console.log("done");
-//   });
-
 /* -------------------------------------------------------------------------- */
-/*                            profile card request                            */
+/*                            profile image request                            */
 /* -------------------------------------------------------------------------- */
 
-// api
-//   .updateProfilePictureRequest()
-//   .then((res) => {
-//     console.log(res);
-//   })
-//   .catch((err) => {
-//     console.error("an error has occurred", err);
-//   })
-//   .finally(() => {
-//     console.log("done");
-//   });
+const updateProfilePicture = new PopupWithForm({
+  popupSelector: "#change-avatar-modal",
+  handleFormSubmit: (inputValues) => {
+    const linkInput = inputValues;
+    console.log(linkInput);
+    api
+      .updateProfilePictureRequest({ linkInput })
+      .then((res) => {
+        console.log(res);
+        console.log(linkInput);
+      })
+      .catch((err) => {
+        console.error("an error has occurred", err);
+      })
+      .finally(() => {
+        console.log("done");
+      });
+  },
+});
+
+profileImageContainer.addEventListener("mousedown", () => {
+  updateProfilePicture.open();
+});
+
+// // updateProfilePicture.setEventListeners();
+
+updateProfilePicture.updateProfileImageEventListeners();

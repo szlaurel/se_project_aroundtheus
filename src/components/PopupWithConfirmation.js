@@ -29,6 +29,7 @@ export default class PopupWithConfirmation extends Popup {
       console.log(evt);
       console.log("this button is listening");
       this._submitButton();
+      this.close();
     });
   }
 }

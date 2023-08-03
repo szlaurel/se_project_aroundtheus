@@ -23,11 +23,19 @@
       </header>
       <main class="content page__section">
         <section class="profile page__section">
-          <img
-            src="<%=require('./images/jacques-cousteau.jpg')%>"
-            alt="avatar"
-            class="profile__image"
-          />
+          <div class="profile__image-edit" id="profile-avatar-edit">
+            <img
+              src="<%=require('./images/jacques-cousteau.jpg')%>"
+              alt="avatar"
+              class="profile__image"
+            />
+            <img
+              src="<%=require('./images/edit-avatar-pencil.svg')%>"
+              alt="pencil tool"
+              class="profile__image-edit-tool"
+              id="profile-avatar-edit"
+            />
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Jacques C.</h1>
             <button

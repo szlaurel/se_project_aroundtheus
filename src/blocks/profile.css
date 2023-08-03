@@ -4,13 +4,49 @@
   padding-top: 40px;
 }
 
+.profile__image-edit {
+  transition: opacity ease-in-out 0.2s;
+}
+
+.profile__image-edit:hover .profile__image {
+  opacity: 0.4;
+  z-index: 5;
+}
+
+.profile__image-edit:hover .profile__image-edit-tool {
+  opacity: 1;
+}
+
 .profile__image {
   height: 120px;
   width: 120px;
   border-radius: 50%;
   object-fit: cover;
   background-position: center;
-  margin-right: 24px;
+  transition: opacity ease-in-out 0.2s;
+}
+
+.profile__image-edit-tool {
+  width: 26px;
+  height: 26px;
+  left: 45px;
+  top: 90px;
+  right: 100px;
+  position: absolute;
+  opacity: 0;
+  transition: opacity ease-in-out 0.2s;
+}
+
+.profile__image-edit-tool:hover {
+  opacity: 1;
+}
+
+.profile__image:hover {
+  cursor: pointer;
+  background: #000000 center no-repeat;
+  background-image: url(../images/edit-avatar-pencil.svg);
+  z-index: 4;
+  /* opacity: 0.4; */
 }
 
 .profile__info {
@@ -20,6 +56,7 @@
     "description description";
   grid-template-columns: minmax(auto, 373px) auto;
   align-items: flex-end;
+  margin-left: 24px;
 }
 
 .profile__title {
@@ -115,6 +152,25 @@
     min-width: 282px;
     min-height: 50px;
   }
+
+  .profile__image-edit-tool {
+    right: 190px;
+    left: 190px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .profile__image-edit-tool {
+    right: 170px;
+    left: 170px;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .profile__image-edit-tool {
+    right: 160px;
+    left: 160px;
+  }
 }
 
 @media screen and (max-width: 406px) {
@@ -132,6 +188,18 @@
     margin-right: 32px;
     margin-left: 0;
     margin-bottom: 0;
+  }
+
+  .profile__image-edit-tool {
+    right: 135px;
+    left: 135px;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .profile__image-edit-tool {
+    right: 140px;
+    left: 140px;
   }
 }
 
@@ -155,5 +223,9 @@
     margin-bottom: 4px;
     width: 18px;
     height: 18px;
+  }
+  .profile__image-edit-tool {
+    right: 130px;
+    left: 130px;
   }
 }
