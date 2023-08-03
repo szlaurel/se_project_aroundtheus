@@ -376,6 +376,10 @@ function handleLikeButton(card) {
 /*                            profile image request                            */
 /* -------------------------------------------------------------------------- */
 
+function setProfilePicture(linkInput) {
+  profileImage.src = linkInput;
+}
+
 const updateProfilePicture = new PopupWithForm({
   popupSelector: "#change-avatar-modal",
   handleFormSubmit: (inputValues) => {
@@ -385,8 +389,9 @@ const updateProfilePicture = new PopupWithForm({
       .updateProfilePictureRequest({ linkInput: linkInput })
       .then((res) => {
         console.log(res);
-        profileImage.src = linkInput;
-        // this is where the pushing of the link goes through
+        setProfilePicture(linkInput);
+        updateProfilePicture.close();
+        // this is where the pushing of the link goes through to the src on the img
       })
       .catch((err) => {
         console.error("an error has occurred", err);
@@ -401,6 +406,15 @@ profileImageContainer.addEventListener("mousedown", () => {
   updateProfilePicture.open();
 });
 
-// // updateProfilePicture.setEventListeners();
-
 updateProfilePicture.updateProfileImageEventListeners();
+
+updateProfilePicture.setEventListeners();
+
+api
+  .userProfileInfo()
+  .then((res) => res.json())
+  .then((info) => {
+    const avatarImage = info.avatar;
+    console.log(avatarImage);
+    setProfilePicture(avatarImage);
+  });
