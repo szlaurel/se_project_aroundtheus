@@ -35,6 +35,10 @@ class PopupWithForm extends Popup {
     this._submitButton = this.popupForm.querySelector(".modal__button");
     this._submitButton.textContent = "Saving...";
   }
+  revertSaveButtonListener() {
+    this._submitButton = this.popupForm.querySelector(".modal__button");
+    this._submitButton.textContent = "Save";
+  }
 
   setEventListeners() {
     super.setEventListeners();

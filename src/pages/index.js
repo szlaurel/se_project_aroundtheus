@@ -7,7 +7,6 @@ const api = new Api({
     authorization: "7209809d-78d6-4fba-8d62-afbf889fcee0",
     "Content-type": "application/json",
   },
-  // cardID:
 });
 
 /* -------------------------------------------------------------------------- */
@@ -198,11 +197,6 @@ addNewCardButton.addEventListener("click", () => {
 /*                           profileCard instantiate                          */
 /* -------------------------------------------------------------------------- */
 
-function revertSaveButtonListener() {
-  const submitButton = document.querySelector(".modal__button");
-  submitButton.textContent = "Save";
-}
-
 // the editProfileRequest api has to go here
 
 const profileCardPopup = new PopupWithForm({
@@ -220,13 +214,15 @@ const profileCardPopup = new PopupWithForm({
           name: title,
           job: description,
         });
+      })
+      .then(() => {
         profileCardPopup.close();
       })
       .catch((err) => {
         console.error("an error has occurred", err);
       })
       .finally(() => {
-        revertSaveButtonListener();
+        profileCardPopup.revertSaveButtonListener();
         console.log("done");
       });
   },
@@ -262,7 +258,7 @@ const newCardPopup = new PopupWithForm({
         console.error("an error has occurred", err);
       })
       .finally(() => {
-        revertSaveButtonListener();
+        newCardPopup.revertSaveButtonListener();
         console.log("done");
       });
   },
@@ -337,10 +333,6 @@ api
 //need to figure out a way to take the ids and plug them into the url. Do i use an event listener of every card and everytime i click a specific one i get the id for it i do i just listen for every time?
 
 /* -------------------------------------------------------------------------- */
-/*                                fetch request                               */
-/* -------------------------------------------------------------------------- */
-
-/* -------------------------------------------------------------------------- */
 /*                                card requests                               */
 /* -------------------------------------------------------------------------- */
 
@@ -376,9 +368,6 @@ function handleLikeButton(card) {
 /*                            profile image request                            */
 /* -------------------------------------------------------------------------- */
 
-function setProfilePicture(linkInput) {
-  profileImage.src = linkInput;
-}
 // the problem with the code right now is that when you update the profile picture the name and the description disappear and i need to find out why it does that and the same happens vice versa.
 
 const updateProfilePicture = new PopupWithForm({
@@ -398,7 +387,7 @@ const updateProfilePicture = new PopupWithForm({
         console.error("an error has occurred", err);
       })
       .finally(() => {
-        revertSaveButtonListener();
+        updateProfilePicture.revertSaveButtonListener();
         console.log("done");
       });
   },

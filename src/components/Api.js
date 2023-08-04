@@ -85,7 +85,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards/${cardID}`, {
       method: "DELETE",
       headers: this._headers,
-    });
+    }).then(this._checkResponse);
   }
 
   //cardId in the like button request and the delete button request need to be updated with the cards id that comes from the server, so in order to do that we need so the request the id that comes from the server and imbed it into the requests when the action happens
