@@ -57,28 +57,15 @@ const addCardSubmitButton = addCardModal.querySelector(".modal__button");
 /* -------------------------------------------------------------------------- */
 
 const confirmDeleteModal = document.querySelector("#confirm-delete-modal");
-const confirmDeleteModalContainer =
-  confirmDeleteModal.querySelector(".modal__container");
-const confirmDeleteModalForm = confirmDeleteModal.querySelector(".modal__form");
-const confirmDeleteModalCloseButton =
-  confirmDeleteModal.querySelector(".modal__close");
-const confirmDeleteModalSubmit =
-  confirmDeleteModal.querySelector(".modal__button");
 
 /* -------------------------------------------------------------------------- */
 /*              variables that belong to the change avatar popup              */
 /* -------------------------------------------------------------------------- */
 const changeAvatarModal = document.querySelector("#change-avatar-modal");
-const changeAvatarModalContainer = changeAvatarModal.querySelector(
-  "#change-avatar-container"
-);
+
 const changeAvatarModalForm = changeAvatarModal.querySelector(
   "#change-avatar-form"
 );
-const changeAvatarModalCloseButton =
-  changeAvatarModal.querySelector(".modal__close");
-const chagneAvatarModalSubmitButton =
-  changeAvatarModal.querySelector(".modal__button");
 
 /* -------------------------------------------------------------------------- */
 /*                              card template div                             */
@@ -181,9 +168,12 @@ function renderCard(cardData, wrapper) {
 /* -------------------------------------------------------------------------- */
 /*                        profile edit button new code                        */
 /* -------------------------------------------------------------------------- */
+//need to make the avatar selector work upon the setuser info with the api calls
+
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
   jobSelector: ".profile__description",
+  avatarSelector: ".profile__image",
 });
 
 // the userProfileInfo api call has to go here i think.
@@ -192,7 +182,7 @@ profileEditButton.addEventListener("click", () => {
   const info = userInfo.getUserInfo();
   profileTitleInput.value = info.name;
   profileDescriptionInput.value = info.job;
-  profileCard.open();
+  profileCardPopup.open();
 });
 
 /* -------------------------------------------------------------------------- */
@@ -201,16 +191,21 @@ profileEditButton.addEventListener("click", () => {
 
 addNewCardButton.addEventListener("click", () => {
   addFormValidator.resetValidation();
-  newCard.open();
+  newCardPopup.open();
 });
 
 /* -------------------------------------------------------------------------- */
 /*                           profileCard instantiate                          */
 /* -------------------------------------------------------------------------- */
 
+function revertSaveButtonListener() {
+  const submitButton = document.querySelector(".modal__button");
+  submitButton.textContent = "Save";
+}
+
 // the editProfileRequest api has to go here
 
-const profileCard = new PopupWithForm({
+const profileCardPopup = new PopupWithForm({
   popupSelector: "#profile-edit-modal",
   handleFormSubmit: (inputValues) => {
     console.log(inputValues);
@@ -225,18 +220,19 @@ const profileCard = new PopupWithForm({
           name: title,
           job: description,
         });
-        profileCard.close();
+        profileCardPopup.close();
       })
       .catch((err) => {
         console.error("an error has occurred", err);
       })
       .finally(() => {
+        revertSaveButtonListener();
         console.log("done");
       });
   },
 });
 
-profileCard.setEventListeners();
+profileCardPopup.setEventListeners();
 
 /* -------------------------------------------------------------------------- */
 /*                             newCard instantiate                            */
@@ -247,7 +243,7 @@ profileCard.setEventListeners();
 //template for the code update profile picture
 //essentially the code to update the avatar is the same code as the newcard
 
-const newCard = new PopupWithForm({
+const newCardPopup = new PopupWithForm({
   popupSelector: "#add-card-modal",
   handleFormSubmit: (inputValues) => {
     const name = inputValues.name;
@@ -260,18 +256,19 @@ const newCard = new PopupWithForm({
         // "res" in the renderCard parameter takes all the data from the .then("res") and pushes all of the necessary info that the server has to the cards
         const card = renderCard(res);
         sectionRenderer.addItem(card);
-        newCard.close();
+        newCardPopup.close();
       })
       .catch((err) => {
         console.error("an error has occurred", err);
       })
       .finally(() => {
+        revertSaveButtonListener();
         console.log("done");
       });
   },
 });
 
-newCard.setEventListeners();
+newCardPopup.setEventListeners();
 
 /* -------------------------------------------------------------------------- */
 /*                             confirmation popup                             */
@@ -292,6 +289,7 @@ function handleDeleteButton(card) {
         console.error("an error has occurred", err);
       })
       .finally(() => {
+        popupConfirm.close();
         console.log("done");
       });
   });
@@ -306,9 +304,15 @@ popupConfirm.setEventListeners();
 
 let sectionRenderer;
 
+// Promise.all([api.getInitialCards(), api.editProfileRequest()]).then(
+//   ([userData, cards]) => {
+//     console.log(userData, cards);
+//   }
+// );
+
 api
-  .getInitialCards()
-  .then((initialCards) => {
+  .getAppInfo()
+  .then(([initialCards, info]) => {
     sectionRenderer = new Section(
       {
         items: initialCards,
@@ -320,40 +324,28 @@ api
       cardListSelector
     );
     sectionRenderer.renderItems();
-    const cards = initialCards;
-  })
-  //need to figure out a way to take the ids and plug them into the url. Do i use an event listener of every card and everytime i click a specific one i get the id for it i do i just listen for every time?
-  .catch((err) => {
-    console.error("An error was found", err);
-  });
-
-/* -------------------------------------------------------------------------- */
-/*                                fetch request                               */
-/* -------------------------------------------------------------------------- */
-api
-  .userProfileInfo()
-  .then((res) => res.json())
-  .then((info) => {
-    console.log(info);
     userInfo.setUserInfo({
       name: info.name,
       job: info.about,
     });
-    console.log(userInfo);
+    userInfo.setAvatarProfile({ avatar: info.avatar });
   })
   .catch((err) => {
-    console.error("an error has occurred", err);
-  })
-  .finally(() => {
-    console.log("done");
+    console.error("An error was found", err);
   });
+
+//need to figure out a way to take the ids and plug them into the url. Do i use an event listener of every card and everytime i click a specific one i get the id for it i do i just listen for every time?
+
+/* -------------------------------------------------------------------------- */
+/*                                fetch request                               */
+/* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 /*                                card requests                               */
 /* -------------------------------------------------------------------------- */
 
 function handleLikeButton(card) {
-  if (card._isLiked) {
+  if (card.isliked) {
     api
       .removeLikeButtonRequest(card._id)
       .then((res) => {
@@ -387,6 +379,7 @@ function handleLikeButton(card) {
 function setProfilePicture(linkInput) {
   profileImage.src = linkInput;
 }
+// the problem with the code right now is that when you update the profile picture the name and the description disappear and i need to find out why it does that and the same happens vice versa.
 
 const updateProfilePicture = new PopupWithForm({
   popupSelector: "#change-avatar-modal",
@@ -397,7 +390,7 @@ const updateProfilePicture = new PopupWithForm({
       .updateProfilePictureRequest({ linkInput: linkInput })
       .then((res) => {
         console.log(res);
-        setProfilePicture(linkInput);
+        userInfo.setAvatarProfile({ avatar: linkInput });
         updateProfilePicture.close();
         // this is where the pushing of the link goes through to the src on the img
       })
@@ -405,24 +398,19 @@ const updateProfilePicture = new PopupWithForm({
         console.error("an error has occurred", err);
       })
       .finally(() => {
+        revertSaveButtonListener();
         console.log("done");
       });
   },
 });
 
 profileImageContainer.addEventListener("mousedown", () => {
+  avatarImageFormValidator.resetValidation();
   updateProfilePicture.open();
 });
 
-updateProfilePicture.updateProfileImageEventListeners();
+//have to remove the function for the down below VVVVV but before i do i need to study how and why its working without it
 
 updateProfilePicture.setEventListeners();
 
-api
-  .userProfileInfo()
-  .then((res) => res.json())
-  .then((info) => {
-    const avatarImage = info.avatar;
-    console.log(avatarImage);
-    setProfilePicture(avatarImage);
-  });
+//take a look at the first api userProfileInfo call i commented out the .then res res.json() need to review this more

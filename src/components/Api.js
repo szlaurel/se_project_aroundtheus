@@ -36,23 +36,25 @@ export default class Api {
     this._cardID = cardID;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return new Promise.reject(`Error : ${res.status}`);
+  }
+
   userProfileInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: this._headers,
-    });
+    }).then(this._checkResponse);
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       method: "GET",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return new Promise.reject(`Error : ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   editProfileRequest({ title, description }) {
@@ -63,12 +65,7 @@ export default class Api {
         name: title,
         about: description,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return new Promise.reject(`Error : ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   //need to find a way to plug the data that i get from the add card form and push it into the addnewcards api call
@@ -81,12 +78,7 @@ export default class Api {
         name: name,
         link: link,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return new Promise.reject(`Error : ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   confirmDeleteButton(cardID) {
@@ -107,24 +99,14 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return new Promise.reject(`Error : ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   removeLikeButtonRequest(cardID) {
     return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return new Promise.reject(`Error : ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   updateProfilePictureRequest({ linkInput }) {
@@ -134,20 +116,11 @@ export default class Api {
       body: JSON.stringify({
         avatar: linkInput,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return new Promise.reject(`Error : ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
-  async cardRenderer() {
-    await Promise.all([
-      this.getInitialCards(),
-      this.editProfileRequest(),
-      this.updateProfilePictureRequest(),
-    ]);
+  async getAppInfo() {
+    return await Promise.all([this.getInitialCards(), this.userProfileInfo()]);
   }
 }
 

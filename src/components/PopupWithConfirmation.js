@@ -10,26 +10,20 @@ import Popup from "./Popup.js";
 export default class PopupWithConfirmation extends Popup {
   constructor({ popupSelector }) {
     super({ popupSelector });
-    this._popupSelector = document.querySelector(popupSelector);
   }
 
   setSubmitAction(action) {
     this._submitButton = action;
   }
 
-  _handleEscClose() {
-    super._handleEscClose();
-  }
-
   setEventListeners() {
     super.setEventListeners();
-    this._confirmButton = this._popupSelector.querySelector(".modal__button");
+    this._confirmButton = this._popupElement.querySelector(".modal__button");
     this._confirmButton.addEventListener("click", (evt) => {
       evt.preventDefault();
       console.log(evt);
       console.log("this button is listening");
       this._submitButton();
-      this.close();
     });
   }
 }

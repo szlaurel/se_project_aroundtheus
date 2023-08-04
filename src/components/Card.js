@@ -12,7 +12,7 @@ export class Card {
     this._name = data.name;
     this._link = data.link;
     this._id = data._id;
-    this._isLiked = data.isLiked;
+    this.isliked = data.isLiked;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteButton = handleDeleteButton;
@@ -35,13 +35,13 @@ export class Card {
   }
 
   updateLikes(isLiked) {
-    this._isLiked = isLiked;
+    this.isliked = isLiked;
     this._handleLikeIcon();
   }
 
   _handleLikeIcon() {
     const likeButton = this._element.querySelector(".card__like-button");
-    if (this._isLiked) {
+    if (this.isliked) {
       likeButton.classList.add("card__like-button_active");
     } else {
       likeButton.classList.remove("card__like-button_active");
