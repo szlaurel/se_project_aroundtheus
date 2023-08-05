@@ -20,7 +20,12 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
-import { initialCards } from "../utils/constants.js";
+import {
+  initialCards,
+  cardListSelector,
+  cardSelector,
+  validationSettings,
+} from "../utils/constants.js";
 import Api from "../components/Api.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
@@ -70,8 +75,6 @@ const changeAvatarModalForm = changeAvatarModal.querySelector(
 /*                              card template div                             */
 /* -------------------------------------------------------------------------- */
 
-const cardSelector = "#card-template";
-const cardListSelector = ".cards__list";
 const cardTemplateSelector = document.querySelector("#card-template");
 const deleteButton = cardTemplateSelector.querySelector(".card__delete-button");
 
@@ -105,14 +108,14 @@ const cardUrlInput = addCardModal.querySelector(".modal__input_type_url");
 /*                  Validation settings and the form element                  */
 /* -------------------------------------------------------------------------- */
 
-const validationSettings = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
-};
+// const validationSettings = {
+//   formSelector: ".modal__form",
+//   inputSelector: ".modal__input",
+//   submitButtonSelector: ".modal__button",
+//   inactiveButtonClass: "modal__button_disabled",
+//   inputErrorClass: "modal__input_type_error",
+//   errorClass: "modal__error_visible",
+// };
 
 const formElement = document.querySelector(validationSettings.formSelector);
 
@@ -252,6 +255,8 @@ const newCardPopup = new PopupWithForm({
         // "res" in the renderCard parameter takes all the data from the .then("res") and pushes all of the necessary info that the server has to the cards
         const card = renderCard(res);
         sectionRenderer.addItem(card);
+      })
+      .then(() => {
         newCardPopup.close();
       })
       .catch((err) => {
@@ -281,11 +286,13 @@ function handleDeleteButton(card) {
       .then(() => {
         card.handleDeleteCard();
       })
+      .then(() => {
+        popupConfirm.close();
+      })
       .catch((err) => {
         console.error("an error has occurred", err);
       })
       .finally(() => {
-        popupConfirm.close();
         console.log("done");
       });
   });
@@ -380,8 +387,11 @@ const updateProfilePicture = new PopupWithForm({
       .then((res) => {
         console.log(res);
         userInfo.setAvatarProfile({ avatar: linkInput });
-        updateProfilePicture.close();
+
         // this is where the pushing of the link goes through to the src on the img
+      })
+      .then(() => {
+        updateProfilePicture.close();
       })
       .catch((err) => {
         console.error("an error has occurred", err);
