@@ -307,11 +307,7 @@ popupConfirm.setEventListeners();
 
 let sectionRenderer;
 
-// Promise.all([api.getInitialCards(), api.editProfileRequest()]).then(
-//   ([userData, cards]) => {
-//     console.log(userData, cards);
-//   }
-// );
+// where the code for the
 
 api
   .getAppInfo()
