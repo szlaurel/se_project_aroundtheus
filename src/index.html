@@ -9,7 +9,7 @@
       name="description"
       content="Place to post pictures and to see national parks around the U.S."
     />
-    <link rel="icon" href="./favicon.ico" />
+    <link rel="icon" href="/favicon.ico" />
     <title>Around the U.S.</title>
   </head>
   <body class="page">
@@ -23,19 +23,28 @@
       </header>
       <main class="content page__section">
         <section class="profile page__section">
-          <img
-            src="<%=require('./images/jacques-cousteau.jpg')%>"
-            alt="avatar"
-            class="profile__image"
-          />
+          <div class="profile__image-edit" id="profile-avatar-edit">
+            <img
+              src=""
+              alt="avatar"
+              class="profile__image"
+              id="profile-image"
+            />
+            <img
+              src="<%=require('./images/edit-avatar-pencil.svg')%>"
+              alt="pencil tool"
+              class="profile__image-edit-tool"
+              id="profile-avatar-edit"
+            />
+          </div>
           <div class="profile__info">
-            <h1 class="profile__title">Jacques Cousteau</h1>
+            <h1 class="profile__title"></h1>
             <button
               type="button"
               class="profile__edit-button"
               id="profile-edit-button"
             ></button>
-            <p class="profile__description">Explorer</p>
+            <p class="profile__description"></p>
           </div>
           <button type="button" class="profile__add-button"></button>
         </section>
@@ -119,7 +128,48 @@
           </form>
         </div>
       </div>
+      <!-- change avatar popup-->
+      <div class="modal" id="change-avatar-modal">
+        <div class="modal__container" id="change-avatar-container">
+          <button class="modal__close"></button>
+          <form class="modal__form" id="change-avatar-form" novalidate>
+            <h2 class="modal__heading" for="heading-avatar">
+              Change profile picture
+            </h2>
+            <input
+              type="url"
+              name="link"
+              id="url-input"
+              placeholder="Link"
+              class="modal__input modal__input_type_url"
+              required
+              for="avatar-image-input"
+            />
+            <span class="modal__error" id="url-input-error"></span>
+            <button class="modal__button" type="submit" for="submit-avatar">
+              Save
+            </button>
+          </form>
+        </div>
+      </div>
+      <!-- confirm delete popup -->
+      <div class="modal" id="confirm-delete-modal">
+        <div class="modal__container" id="confirm-delete-modal-container">
+          <button class="modal__close"></button>
+          <form class="modal__form" id="confirm-delete-form" novalidate>
+            <h2 class="modal__heading" for="heading-confirm">Are you sure?</h2>
+            <button
+              class="modal__button"
+              for="confirm-submit-delete-button"
+              type="submit"
+            >
+              Yes
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
+    <!-- where all the information goes to make the new card show up when you submit the add card form -->
     <template id="card-template">
       <!-- add a delete button on the card using position absolute and add the trashcan -->
       <li class="card">

@@ -80,6 +80,14 @@
   margin-top: 0;
 }
 
+.modal__heading[for="heading-confirm"] {
+  padding-bottom: 0px;
+}
+
+.modal__heading[for="heading-avatar"] {
+  padding-bottom: 0px;
+}
+
 .modal__input {
   border: 1px solid rgba(0, 0, 0, 0.2);
   width: 100%;
@@ -93,6 +101,10 @@
   font-size: 14px;
   line-height: 17px;
   color: #000;
+}
+
+.modal__input[for="avatar-image-input"] {
+  margin-top: 54px;
 }
 
 .modal__error {
@@ -138,6 +150,14 @@
   color: #ffffff;
   transition: ease-in-out 0.6s;
   border: none;
+}
+
+.modal__button[for="confirm-submit-delete-button"] {
+  margin-top: 38px;
+}
+
+.modal__button[for="submit-avatar"] {
+  margin-top: 48px;
 }
 
 .modal__button:hover:not(:disabled) {

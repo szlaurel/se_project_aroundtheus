@@ -2,20 +2,30 @@
 // import PopupWithImage from "./PopupWithImage.js";
 
 export class Card {
-  constructor(data, cardSelector, handleCardClick) {
+  constructor(
+    data,
+    cardSelector,
+    handleCardClick,
+    handleDeleteButton,
+    handleLikeButton
+  ) {
     this._name = data.name;
     this._link = data.link;
+    this._id = data._id;
+    this.isliked = data.isLiked;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteButton = handleDeleteButton;
+    this._handleLikeButton = handleLikeButton;
   }
 
   _setEventListeners() {
     this._element
       .querySelector(".card__like-button")
-      .addEventListener("click", () => this._handleLikeIcon());
+      .addEventListener("click", () => this._handleLikeButton(this));
     this._element
       .querySelector(".card__delete-button")
-      .addEventListener("click", () => this._handleDeleteCard());
+      .addEventListener("click", () => this._handleDeleteButton(this));
     this._element
       .querySelector(".card__image")
       .addEventListener("click", () =>
@@ -24,12 +34,21 @@ export class Card {
     //We can shorten out the cardImageEl by making a function within this class and passing it through for simplicity sakes, but focus on making the rough end of the code.
   }
 
-  _handleLikeIcon() {
-    const likeButton = this._element.querySelector(".card__like-button");
-    likeButton.classList.toggle("card__like-button_active");
+  updateLikes(isLiked) {
+    this.isliked = isLiked;
+    this._handleLikeIcon();
   }
 
-  _handleDeleteCard() {
+  _handleLikeIcon() {
+    const likeButton = this._element.querySelector(".card__like-button");
+    if (this.isliked) {
+      likeButton.classList.add("card__like-button_active");
+    } else {
+      likeButton.classList.remove("card__like-button_active");
+    }
+  }
+
+  handleDeleteCard() {
     this._element.remove();
   }
 
@@ -46,6 +65,7 @@ export class Card {
     this._element.querySelector(".card__image").alt = this._name;
     this._element.querySelector(".card__title").textContent = this._name;
     this._setEventListeners();
+    this._handleLikeIcon();
     return this._element;
   }
 
